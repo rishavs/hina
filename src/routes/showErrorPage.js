@@ -6,12 +6,12 @@ export const showErrorPage = async (c, err) => {
 
     const page = errorPage(err)
     var props = {
-        title: `${err} ERROR PAGE`,
-        description: "This here is the ERROR PAGE",
+        title: `${err.errCode} ERROR PAGE`,
+        description: `ERROR: ${err}`,
         page : page
     }
 
     const view = render(props)
-    return c.html(view)    
+    return c.html(view, err.errCode || 500)    
 }
 

@@ -5,8 +5,7 @@ export const postDetails = async (id) => {
     const data = await fetchPostDetails(id) 
 
     const content = /*html*/`
-        <article>
-
+        <article class="min-h-screen">
             <h1> ${data[0].id} : ${data[0].title} </h1>
             <p> ${data[0].description} </p>
         </article>

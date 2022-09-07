@@ -1,0 +1,5 @@
+{
+    "tasks": {
+        "dev": "deno run --unstable --allow-all --watch ./src/server.js --dev"
+    }
+}

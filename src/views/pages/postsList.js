@@ -11,7 +11,7 @@ export const postsList = async () => {
     })
 
     return /*html*/`
-        <article>
+        <article class="min-h-screen">
             <ol>
                 ${content}
             </ol>
