@@ -16,18 +16,12 @@ const fetchPostsList = async () => {
     return await db`select * from posts limit 10`
 }
 const fetchPostDetails = async (id) => {
-    console.log(id)
     let queryResult = await db`select * from posts where id = ${id}`
-    console.log(queryResult)
 
     if (queryResult.length == 0) {
-        console.log("empty res")
-        let err = new Error ("PageNotFound")
-        err.errCode = 404
-        err.errDescr = "Welp! This page cannot be found"
-        err.errFlavour = "Let's just look at cats instead"
-        throw err
+        throw new Error("404:PageNotFound")
     }
+    
     return queryResult
 }
 
