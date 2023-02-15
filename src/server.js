@@ -1,18 +1,9 @@
+import { initHeaders } from "./middlewares/initHeaders"
+import { renderHomePage } from "./middlewares/renderHomePage"
+import { renderAboutPage } from "./middlewares/renderAboutPage"
+import { renderSpecificPost } from "./middlewares/renderSpecificPost"
 
-const initHeaders = async (ctx) => {
-    ctx.res.headersList.append('Powered-by', 'Pika Pika Pika Choooo')
-}
-
-const renderHomePage = async (ctx) => {
-    ctx.res.bodyText = "HOME"
-}
-
-const renderAboutPage = async (ctx) => {
-    ctx.res.bodyText = "ABOUT"
-}
-const renderSpecificPost = async (ctx) => {
-    ctx.res.bodyText = `Type: ${ctx.req.resourceType}\nID: ${ctx.req.resourceId}`
-}
+const renderPage = () => {}
 
 const routes = new Map([
     ["GET/", [initHeaders, renderHomePage]],
@@ -38,6 +29,10 @@ export default {
             env : env,
             req : request,
             res : {
+                pageProps: {
+                    title: `Page Title`,
+                    description: "This here is the description of the post details page",
+                },
                 bodyText: "This is some exotic error",
                 statusCode: 500,
                 headersList : new Headers()
