@@ -1,42 +1,78 @@
-import { serve, serveTls } from 'https://deno.land/std/http/server.ts'
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { logger, serveStatic } from 'https://deno.land/x/hono/middleware.ts'
 
-import {pingDB} from "./database.js"
-import {showPostsListPage} from "./routes/showPostsListPage.js"
-import {showPostDetailsPage} from "./routes/showPostDetailsPage.js"
-import {showAboutPage} from "./routes/showAboutPage.js"
-import {showErrorPage} from "./routes/showErrorPage.js"
+const initHeaders = async (ctx) => {
+    ctx.res.headersList.append('Powered-by', 'Pika Pika Pika Choooo')
+}
 
-console.log(await pingDB())
+const renderHomePage = async (ctx) => {
+    ctx.res.bodyText = "HOME"
+}
 
-const app = new Hono()
+const renderAboutPage = async (ctx) => {
+    ctx.res.bodyText = "ABOUT"
+}
+const renderSpecificPost = async (ctx) => {
+    ctx.res.bodyText = `Type: ${ctx.req.resourceType}\nID: ${ctx.req.resourceId}`
+}
 
-app.use('/pub/*', serveStatic({ root: './' }))
-app.use('*', logger())
+const routes = new Map([
+    ["GET/", [initHeaders, renderHomePage]],
+    ['GET/about', [renderAboutPage]],
+    ["GET/p/:id", [renderSpecificPost]],
+]);
+  
+export default {
+    async fetch(request, env) {
+        const url = new URL(request.url);
+        
+        // ------------------------------------------
+        // Serve Static assets
+        // ------------------------------------------
+        if (url.pathname.startsWith("/pub")) {
+            return env.ASSETS.fetch(request);    
+        }
 
-app.get('/',       async (c) => await showPostsListPage(c))
-app.get('/about',  async (c) => await showAboutPage(c))
-app.get('/p',      async (c) => await showPostsListPage(c))
-app.get("/p/:id",  async (c) => await showPostDetailsPage(c))
+        // ------------------------------------------
+        // Serve Dynamic routes
+        // ------------------------------------------
+        let ctx = {
+            env : env,
+            req : request,
+            res : {
+                bodyText: "This is some exotic error",
+                statusCode: 500,
+                headersList : new Headers()
+            } 
+        }
 
-app.onError((err, c) => {
-    return showErrorPage(c, err)
-}) 
+        let urlFrag = url.pathname.split('/').filter((a) => a)
+        ctx.req.resourceType = urlFrag[0]
 
-app.notFound((c) => {
-    // showErrorPage(c, "404 Error")
-    // let err = new Error ("PageNotFound")
-    // err.errCode = 404
-    // err.errDescr = "Welp! This page cannot be found"
-    // err.errFlavour = "Let's just look at cats instead"
-    // throw err
-    throw new Error("404:PageNotFound")
+        if(urlFrag[1]) { 
+            ctx.req.resourceId = urlFrag[1]
+            urlFrag[1] = ":id" 
+        }
+        
+        let cleanedURL = `${request.method}/${urlFrag.join('/')}`
+        console.log(cleanedURL)
+        try {
+            if (routes.has(cleanedURL)) {
+                let middlewares = routes.get(cleanedURL)
+                for (const middleware of middlewares) {
+                    await middleware(ctx)
+                } 
+                // handler(ctx)
+                return new Response(ctx.res.bodyText, {status: 200, headers: ctx.res.headersList})
 
-})
-
-serveTls(app.fetch, {
-    port: 443,
-    certFile: "cert.pem",
-    keyFile: "key.pem",
-  });
+            } else {
+                throw new Error("404", {cause:"Not all who wander are lost"})
+            }
+        } catch (err) {
+            // Sepaaretd these out as this are the general user errors and may need to be customized
+            if (["401", "404", "418"].includes(err.message)) {
+                return new Response (`${err.message}\n${err.stack} }`, {status: err.message})
+            } else {
+                return new Response (`Server Error - 500\n${err.message}\n${err.stack}`, {status: 500})
+            }
+        }
+    },
+}
