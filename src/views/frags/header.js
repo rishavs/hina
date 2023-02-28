@@ -15,8 +15,9 @@ export const Header = () => /*html*/ `
             </div>
         </div>
         <div class="navbar-end">
-            <label for="loginModal" class="btn modal-button bg-secondary">Login</label>
-            <div class="dropdown dropdown-end mx-2">
+            <a class="btn modal-button bg-primary mx-1" href="/login">Google Sign in</a>
+            <label for="loginModal" class="btn modal-button bg-secondary mx-1">Login</label>
+            <div class="dropdown dropdown-end mx-1">
                 <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
                         <img src="/pub/bm.png" />

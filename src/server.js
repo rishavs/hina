@@ -5,16 +5,22 @@ import { prepHomePage } from "./middlewares/prepHomePage"
 import { prepAboutPage } from "./middlewares/prepAboutPage"
 import { prepSpecificPost } from "./middlewares/prepSpecificPost"
 import { renderLayout } from './views/renderLayout'
+import { handleSocialAuth } from './middlewares/handleSocialAuth'
 
 const getUserInfo = () => { }
 const allowAll = () => { }
 const allowOnlyAuthenticatedUsers = () => { }
 const renderPage = () => { }
+const OauthCallback = (ctx) => { 
+    console.log(ctx.request)
+}
 
 const routes = new Map([
     ["GET/", [initHeaders, getUserInfo, allowAll, prepHomePage, renderLayout]],
     ['GET/about', [initHeaders, getUserInfo, allowAll, prepAboutPage, renderLayout]],
     ["GET/p/:id", [initHeaders, getUserInfo, allowAll, prepSpecificPost, renderLayout]],
+    // ["GET/oauth/google/login", [handleSocialAuth]],
+    ["POST/oauth/:id/callback", [handleSocialAuth]],
 
     // ["GET/cat/all?pickBy", [renderSpecificPost]], curated [D], new, top, trending, controversial, lively, 
     // ["GET/cat/:id", [renderSpecificPost]],
@@ -29,6 +35,7 @@ export default {
     async fetch(request, env) {
         const url = new URL(request.url);
 
+
         // ------------------------------------------
         // Serve Static assets
         // ------------------------------------------
@@ -42,6 +49,7 @@ export default {
         let ctx = {
             conn: null,
             user: null,
+            request: request,
             req: {
                 url: null,
                 resourceType: null,

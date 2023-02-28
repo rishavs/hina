@@ -15,13 +15,14 @@
     "homepage": "https://github.com/rishavs/hina#readme",
     "scripts": {
         "dev": "run-p dev:*",
-        "dev:wrangler": "npx wrangler pages dev dist --live-reload",
+        "dev:wrangler": "npx wrangler pages dev dist --live-reload --port 3000",
         "dev:esbuild": "esbuild --bundle src/server.js --format=esm --watch --outfile=dist/_worker.js",
         "build": "esbuild --bundle src/server.js --format=esm --outfile=dist/_worker.js",
         "deploy": "wrangler pages publish dist"
     },
     "dependencies": {
-        "@planetscale/database": "^1.5.0"
+        "@planetscale/database": "^1.5.0",
+        "google-auth-library": "^8.7.0"
     },
     "devDependencies": {
         "esbuild": "^0.15.1",

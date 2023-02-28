@@ -41,6 +41,6 @@ export const fetchSpecificPostById = async (ctx, id) => {
         err.message = "this id doesn't exists in the db"
         throw err
     }
-    console.log(result)
+    // console.log(result)
     return result.rows
 }

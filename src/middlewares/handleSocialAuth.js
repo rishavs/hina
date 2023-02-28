@@ -1,4 +1,5 @@
-export const handleSocialAuth = async (c) => {
-    console.log(c.req)
-    return await c.text("OK", 200)    
+export const handleSocialAuth = async (ctx) => {
+    const data = await ctx.request.text()
+    const paramData = new URLSearchParams(data)
+    ctx.res.bodyText = ctx.req.resourceId + "\n" + paramData.toString()
 }

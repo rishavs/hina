@@ -5,7 +5,7 @@ export const prepHomePage = async (ctx) => {
 
     let postsList = ""
     for (var item of data) {
-        postsList += `<li><a href="/p/${item.id}">${item.title}</a></li>\n`
+        postsList += `<li><a class="link" href="/p/${item.id}">${item.title}</a></li>\n`
     }
 
     ctx.res.pageMetadata.title = "Posts List",
