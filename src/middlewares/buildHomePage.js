@@ -1,6 +1,6 @@
 import { fetchAllPosts } from "../database"
 
-export const prepHomePage = async (ctx) => {
+export const buildHomePage = async (ctx) => {
     const data = await fetchAllPosts(ctx)
 
     let postsList = ""

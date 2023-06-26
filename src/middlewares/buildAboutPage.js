@@ -1,4 +1,4 @@
-export const prepAboutPage = async (ctx) => {
+export const buildAboutPage = async (ctx) => {
 
     ctx.res.pageContent = /*html*/ `
         <article class="min-h-screen">

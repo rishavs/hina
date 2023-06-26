@@ -1,26 +1,63 @@
 import { connect } from '@planetscale/database'
 
 import { initHeaders } from "./middlewares/initHeaders"
-import { prepHomePage } from "./middlewares/prepHomePage"
-import { prepAboutPage } from "./middlewares/prepAboutPage"
-import { prepSpecificPost } from "./middlewares/prepSpecificPost"
+import { buildErrorPage } from "./middlewares/buildErrorPage"
+import { buildHomePage } from "./middlewares/buildHomePage"
+import { buildAboutPage } from "./middlewares/buildAboutPage"
+import { buildSpecificPost } from "./middlewares/buildSpecificPost"
 import { renderLayout } from './views/renderLayout'
-import { handleSocialAuth } from './middlewares/handleSocialAuth'
+// import { handleSocialAuth } from './middlewares/handleSocialAuth'
+// import { build } from 'esbuild'
 
 const getUserInfo = () => { }
 const allowAll = () => { }
 const allowOnlyAuthenticatedUsers = () => { }
-const renderPage = () => { }
+const updateMetaTags = () => { }
 const OauthCallback = (ctx) => { 
     console.log(ctx.request)
 }
 
+// const getGoogleDiscoveryDoc = async () => {
+
+//         /**
+//      * Example someHost is set up to take in a JSON request
+//      * Replace url with the host you wish to send requests to
+//      * @param {string} someHost the host to send the request to
+//      * @param {string} url the URL to send the request to
+//      */
+//         const url = 'https://accounts.google.com/.well-known/openid-configuration'
+    
+//         /**
+//          * gatherResponse awaits and returns a response body as a string.
+//          * Use await gatherResponse(..) in an async function to get the response body
+//          * @param {Response} response
+//          */
+//         async function gatherResponse(response) {
+//           const { headers } = response;
+//           const contentType = headers.get('content-type') || '';
+//           if (contentType.includes('application/json')) {
+//             return JSON.stringify(await response.json());
+//           }
+//           return response.text();
+//         }
+    
+//         const init = {
+//           headers: {
+//             'content-type': 'application/json;charset=UTF-8',
+//           },
+//         };
+        
+//         const response = await fetch(url, init);
+//         const results = await gatherResponse(response);
+//         return new Response(results, init);
+// }
+
 const routes = new Map([
-    ["GET/", [initHeaders, getUserInfo, allowAll, prepHomePage, renderLayout]],
-    ['GET/about', [initHeaders, getUserInfo, allowAll, prepAboutPage, renderLayout]],
-    ["GET/p/:id", [initHeaders, getUserInfo, allowAll, prepSpecificPost, renderLayout]],
+    ["GET/",        [initHeaders, getUserInfo, allowAll, buildHomePage, renderLayout]],
+    ['GET/about',   [initHeaders, getUserInfo, allowAll, buildAboutPage, renderLayout]],
+    ["GET/p/:id",   [initHeaders, getUserInfo, allowAll, buildSpecificPost, renderLayout]],
     // ["GET/oauth/google/login", [handleSocialAuth]],
-    ["POST/oauth/:id/callback", [handleSocialAuth]],
+    // ["GET/oauth/:id/callback", [handleSocialAuth]],
 
     // ["GET/cat/all?pickBy", [renderSpecificPost]], curated [D], new, top, trending, controversial, lively, 
     // ["GET/cat/:id", [renderSpecificPost]],
@@ -82,35 +119,40 @@ export default {
             // Add db connection to context
             // ------------------------------------------   
             const config = {
-                host: env.DATABASE_HOST,
+                host    : env.DATABASE_HOST,
                 username: env.DATABASE_USERNAME,
-                password: env.DATABASE_PASSWORD
+                password: env.DATABASE_PASSWORD,
+                fetch   : (url, init) => {
+                    delete (init)["cache"]; // Remove cache header
+                    return fetch(url, init);
+                }
             }
 
-            ctx.conn = connect(config)
+            ctx.conn = connect(config);
 
             // ------------------------------------------   
             // Resolve the route and execute the app logic
             // ------------------------------------------   
+            // REVERT
 
             if (routes.has(cleanedURL)) {
                 let middlewares = routes.get(cleanedURL)
                 for (const middleware of middlewares) {
                     await middleware(ctx)
                 }
-                // handler(ctx)
-                return new Response(ctx.res.bodyText, { status: 200, headers: ctx.res.headersList })
+                ctx.res.statusCode = 200
 
             } else {
-                throw new Error("404", { cause: "Not all who wander are lost" })
+                ctx.res.statusCode = 404
+                throw new Error(404, { cause: "Not all who wander are lost" })
             }
         } catch (err) {
-            // Sepaaretd these out as this are the general user errors and may need to be customized
-            if (["401", "404", "418"].includes(err.message)) {
-                return new Response(`${err.message}\n${err.stack} }`, { status: err.message })
-            } else {
-                return new Response(`Server Error - 500\n${err.message}\n${err.stack}`, { status: 500 })
+            let middlewares = [initHeaders, buildErrorPage, renderLayout]
+            for (const middleware of middlewares) {
+                await middleware(ctx, err)
             }
         }
+        return new Response(ctx.res.bodyText, { status: ctx.res.statusCode, headers: ctx.res.headersList })
+
     },
 }

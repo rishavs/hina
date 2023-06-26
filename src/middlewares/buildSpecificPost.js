@@ -1,6 +1,6 @@
 import { fetchSpecificPostById } from "../database"
 
-export const prepSpecificPost = async (ctx) => {
+export const buildSpecificPost = async (ctx) => {
     const postId = ctx.req.resourceId
     const data = await fetchSpecificPostById(ctx, postId)
 

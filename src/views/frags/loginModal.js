@@ -6,25 +6,32 @@ export const loginModal = () => /*html*/ `
             <h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
             <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
 
-            
+            <div id="gsi_btn_container"></div>
             <script src="https://accounts.google.com/gsi/client" async defer></script>
-            <div id="g_id_onload"
-                data-client_id="326093643211-dh58srqtltvqfakqta4us0il2vgnkenr.apps.googleusercontent.com"
-                data-context="signin"
-                data-ux_mode="redirect"
-                data-login_uri="http://localhost:3000/oauth/google/callback"
-                data-nonce=""
-                data-itp_support="true">
-            </div>
+            <script>
+                window.onload = function () {
+                    google.accounts.id.initialize({
+                        client_id: '326093643211-dh58srqtltvqfakqta4us0il2vgnkenr.apps.googleusercontent.com',
+                        callback: handleCredentialResponse,
+                        auto_select: false,
+                        ux_mode: "popup",
+                        context: "signin",
 
-            <div class="g_id_signin"
-                data-type="standard"
-                data-shape="pill"
-                data-theme="outline"
-                data-text="signin_with"
-                data-size="large"
-                data-logo_alignment="left">
-            </div>
+                    });
+                    google.accounts.id.prompt();
+                    google.accounts.id.renderButton(document.getElementById("gsi_btn_container"), {
+                        theme: 'outline',
+                        size: 'large',
+                        click_listener: onClickHandler
+                    });
+                };
+                function handleCredentialResponse(cred) {
+                    console.log(cred)
+                }
+                function onClickHandler(){
+                    console.log("Sign in with Google button clicked...")
+                }
+            </script>
         </div>
 
     </div>
