@@ -1,23 +1,22 @@
-import {Header} from "./frags/header.js"
-import {FiltersBar} from "./frags/filtersBar.js"
-import {loginModal} from "./frags/loginModal.js"
-import { Footer } from "./frags/footer.js"
+import {Header} from "./header.js"
+import {FiltersBar} from "./filtersBar.js"
+import {loginModal} from "./loginModal.js"
+import { Footer } from "./footer.js"
 
 
-export const renderLayout = async (ctx) => {
-    ctx.res.bodyText = 
-    /*html*/`
+export const buildHTML = async (store) => {
+    return /*html*/`
     <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <title>${ctx.res.pageMetadata.title}</title>
+            <title>${store.page.title}</title>
             <link rel="icon" type="image/x-icon" href="/pub/favicon.ico">
 
-            <meta name="description" content="${ctx.res.pageMetadata.description}">
+            <meta name="description" content="${store.page.description}">
             <head prefix="og: http://ogp.me/ns#">
             <meta property="og:type" content="article">
             <!-- More elements slow down JSX, but not template literals. -->
-            <meta property="og:title" content="${ctx.res.pageMetadata.title}">
+            <meta property="og:title" content="${store.page.title}">
 
             <script src="https://cdn.tailwindcss.com"></script>
             <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
@@ -29,8 +28,8 @@ export const renderLayout = async (ctx) => {
         <body class="md:mx-8">
             ${Header()}
             ${FiltersBar()}
-            ${ctx.res.pageContent}
-            ${loginModal()}
+            ${store.page.content}
+            ${loginModal(store)}
             ${Footer()}
         </body>
     </html>
