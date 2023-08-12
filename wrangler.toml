@@ -1,5 +1,5 @@
 name = "hina"
-main = "src/server.ts"
+main = "src/_worker.ts"
 compatibility_date = "2023-08-11"
 
 [dev]
