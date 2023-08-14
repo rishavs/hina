@@ -6,7 +6,7 @@
 		"dev": "run-p dev:*",
 		"dev:wrangler": "wrangler pages dev dist --live-reload --port 3000",
 		"dev:esbuild": "esbuild --bundle src/server.ts --format=esm --watch --outfile=dist/_worker.js",
-		"build": "esbuild --bundle src/server.js --format=esm --outfile=dist/_worker.js",
+		"build": "esbuild --bundle src/server.ts --format=esm --outfile=dist/_worker.js",
 		"deploy": "wrangler pages publish dist"
 	},
 	"dependencies": {
