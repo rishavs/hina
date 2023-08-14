@@ -1,0 +1,1 @@
+const msg = "this is the main.js file"

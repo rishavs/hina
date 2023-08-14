@@ -1,14 +1,23 @@
 {
-  "name": "hina",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "deploy": "wrangler publish",
-    "start": "wrangler dev"
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230419.0",
-    "typescript": "^5.0.4",
-    "wrangler": "^3.0.0"
-  }
+	"name": "hina",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"dev": "run-p dev:*",
+		"dev:wrangler": "wrangler pages dev dist --live-reload --port 3000",
+		"dev:esbuild": "esbuild --bundle src/server.ts --format=esm --watch --outfile=dist/_worker.js",
+		"build": "esbuild --bundle src/server.js --format=esm --outfile=dist/_worker.js",
+		"deploy": "wrangler pages publish dist"
+	},
+	"dependencies": {
+		"@planetscale/database": "*",
+		"jose": "*",
+		"nanoid": "^3.3.6"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "*",
+		"esbuild": "*",
+		"npm-run-all": "*",
+		"wrangler": "*"
+	}
 }
