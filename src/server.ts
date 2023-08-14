@@ -128,6 +128,7 @@ export default {
                 store.res.status = e.message
             } else {
                 store.res.status = 500
+                store.res.content = "ERROR: \n" + e;
             }
 
             // Build the error page
