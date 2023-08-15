@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
-
+import brancaModule from 'branca';
+import {EncryptJWT, jwtDecrypt, JSONWebKeySet, KeyLike, CompactEncrypt, compactDecrypt, importJWK, generateSecret} from 'jose';
 import { Env, Store } from './defs';
 
 import { parseCookies } from './utils';
@@ -29,6 +30,32 @@ let routes : Record<string, Array<Function>> = {
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+
+        // const payload = {"this": "is", "a": "test"};
+
+        // const secret = new TextEncoder().encode(env.KEY4)
+
+        // const encryptedJwt = await new EncryptJWT(payload)
+        //     .setProtectedHeader({ alg: "dir", enc: "A256GCM" })
+        //     .setIssuedAt()
+        //     .setSubject("testSubject")
+        //     .setIssuer("https://example.com")
+        //     .setAudience("https://example.com/test")
+        //     .setExpirationTime("1d")
+        //     .encrypt(secret);
+
+        // const options = {
+        //     issuer: "https://example.com",
+        //     audience: "https://example.com/test",
+        //     contentEncryptionAlgorithms: ["A256GCM"],
+        //     keyManagementAlgorithms: ["dir"],
+        // };
+        // let decrypted = await jwtDecrypt(encryptedJwt, secret, options);
+
+        // console.log("Original text: ", payload)
+        // console.log("Encrypted JWT: ", encryptedJwt)
+        // console.log("Decrypted JWT: ", JSON.stringify(decrypted))
+    
         let url = new URL(request.url)
 
         // ------------------------------------------
@@ -74,6 +101,20 @@ export default {
             store.res.headers.append('Set-Cookie', `D_SID=${nanoid()}; Path=/; HttpOnly; Secure; SameSite=Strict`)
         }
 
+        // ------------------------------------------
+        // Put on the HELMET!!! TODO
+        // ------------------------------------------
+
+        // ------------------------------------------
+        // Set CORS - TODO
+        // ------------------------------------------
+
+        // ------------------------------------------
+        // Enable HSTS - TODO
+        // ------------------------------------------
+        // store.res.headers.append('Strict-Transport-Security', 'max-age=3600; includeSubDomains; preload')
+        // store.res.headers.append('Upgrade-Insecure-Requests', '1')
+        // store.res.headers.append('Content-Security-Policy', 'upgrade-insecure-requests')
 
 		// ------------------------------------------
         // handle APIs

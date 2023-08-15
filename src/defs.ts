@@ -5,6 +5,7 @@ export type Env = {
     DATABASE_USERNAME: 	string;
     DATABASE_HOST: 		string;
 	ASSETS: 			Fetcher;
+	SECRET: 			string;
 	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
 	// MY_KV_NAMESPACE: KVNamespace;
 	//

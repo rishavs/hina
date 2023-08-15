@@ -21,8 +21,8 @@ export const generateHTML = async (store: Store) => {
             <meta property="og:type" content="article">
             <meta property="og:title" content="${store.page.title}">
 
-            <script src="https://cdn.tailwindcss.com" async defer></script>
-            <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" async defer/>
+            <script src="https://cdn.tailwindcss.com"></script>
+            <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
             <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js" async defer></script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css" async defer>
 
@@ -63,8 +63,6 @@ export const generateHTML = async (store: Store) => {
                         window.location.reload(true)
                         break;
                 }
-                    
-
             }
         </script>
     </html>

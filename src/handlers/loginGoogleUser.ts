@@ -1,4 +1,4 @@
-import {jwtVerify, createRemoteJWKSet} from 'jose'
+import {jwtVerify, createRemoteJWKSet, EncryptJWT} from 'jose'
 import { Store, Post, User } from '../defs'
 import { nanoid } from 'nanoid'
 import { getGoogleUserFromDB, addGoogleUserToDB } from '../database'
@@ -111,10 +111,17 @@ export const loginGoogleUser = async (store: Store) => {
     }
 
     // ------------------------------------------
-    // Set cookies
+    // Set cookies. TODO - make secure. Add domain info. Add expiry
     // ------------------------------------------
-    // TODO - make secure. Add domain info
-    store.res.headers.append('Set-Cookie', `D_UID=${user.id}; path=/; HttpOnly; Secure; SameSite=Strict;`)
+    const secret = new TextEncoder().encode(store.env.SECRET)
+    const jwe = await new EncryptJWT({uid: user.id})
+        .setProtectedHeader({ alg: "dir", enc: "A256GCM" })
+        .setIssuedAt()
+        .setIssuer("https://digglu.com")
+        .setExpirationTime("30d")
+        .encrypt(secret);
+    
+    store.res.headers.append('Set-Cookie', `D_UID=${jwe}; path=/; HttpOnly; Secure; SameSite=Strict;`)
 
     store.res.headers.append('Set-Cookie', `D_USLUG=${user.slug};           path=/;  SameSite=Strict;`)
     store.res.headers.append('Set-Cookie', `D_UNAME=${user.name};           path=/;  SameSite=Strict;`)
