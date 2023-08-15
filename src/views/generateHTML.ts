@@ -1,8 +1,8 @@
-import { Header } from "../views/header";
-import { FiltersBar } from "../views/filtersBar";
-import { loginModal } from "../views/loginModal";
-import { userDetailsModal } from "../views/userDetailsModal";
-import { Footer } from "../views/footer";
+import { Header } from "./header";
+import { FiltersBar } from "./filtersBar";
+import { loginModal } from "./loginModal";
+import { userDetailsModal } from "./userDetailsModal";
+import { Footer } from "./footer";
 import { Store } from "../defs";
 
 
@@ -21,8 +21,9 @@ export const generateHTML = async (store: Store) => {
             <meta property="og:type" content="article">
             <meta property="og:title" content="${store.page.title}">
 
-            <script src="https://cdn.tailwindcss.com"></script>
             <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+            <link href="/pub/styles.css" rel="stylesheet" type="text/css" />
+
             <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js" async defer></script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css" async defer>
 

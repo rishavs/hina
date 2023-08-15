@@ -1,31 +1,29 @@
-import { nanoid } from 'nanoid';
-import brancaModule from 'branca';
-import {EncryptJWT, jwtDecrypt, JSONWebKeySet, KeyLike, CompactEncrypt, compactDecrypt, importJWK, generateSecret} from 'jose';
-import { Env, Store } from './defs';
+import { nanoid }               from 'nanoid';
+import { Env, Store }           from './defs';
 
-import { parseCookies } from './utils';
-import {generateHTML} from './handlers/generateHTML';
+import { parseCookies }         from './utils';
+import { generateHTML }         from './views/generateHTML';
 
-import {sayHello} from './handlers/sayHello';
-import {buildAboutPage} from './handlers/buildAboutPage';
-import {buildHomePage} from './handlers/buildHomePage';
-import {buildPostDetailsPage} from './handlers/buildPostDetailsPage';
-import { loginGoogleUser } from './handlers/loginGoogleUser';
+import { sayHello }             from './handlers/sayHello';
+import { buildAboutPage }       from './handlers/buildAboutPage';
+import { buildHomePage }        from './handlers/buildHomePage';
+import { buildPostDetailsPage } from './handlers/buildPostDetailsPage';
+import { loginGoogleUser }      from './handlers/loginGoogleUser';
 
 let routes : Record<string, Array<Function>> = {
     // API Routes
     "GET/api/hello"             : [() => console.log("YOYO"), sayHello],
-    "POST/api/login/google"          : [() => console.log("POSTING GOOLE AUTH"), loginGoogleUser],
+    "POST/api/login/google"     : [() => console.log("POSTING GOOLE AUTH"), loginGoogleUser],
 
     
     // Static Routes
-    "GET/"                      : [buildHomePage, generateHTML],
-    "GET/about"                 : [buildAboutPage, generateHTML],
+    "GET/"                      : [ buildHomePage, generateHTML ],
+    "GET/about"                 : [ buildAboutPage, generateHTML ],
 
     // Auth routes
 
     // Dynamic Routes
-    "GET/p/:id"                 : [buildPostDetailsPage, generateHTML],
+    "GET/p/:id"                 : [ buildPostDetailsPage, generateHTML ],
 }
 
 export default {
