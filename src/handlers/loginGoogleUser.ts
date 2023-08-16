@@ -123,22 +123,25 @@ export const loginGoogleUser = async (store: Store) => {
     
     store.res.headers.append('Set-Cookie', `D_UID=${jwe}; path=/; HttpOnly; Secure; SameSite=Strict;`)
 
-    store.res.headers.append('Set-Cookie', `D_USLUG=${user.slug};           path=/;  SameSite=Strict;`)
-    store.res.headers.append('Set-Cookie', `D_UNAME=${user.name};           path=/;  SameSite=Strict;`)
-    store.res.headers.append('Set-Cookie', `D_UHONORIFIC=${user.honorific}; path=/;  SameSite=Strict;`)
-    store.res.headers.append('Set-Cookie', `D_UTHUMB=${user.thumb};         path=/;  SameSite=Strict;`)
-    store.res.headers.append('Set-Cookie', `D_UFLAIR=${user.flair};         path=/;  SameSite=Strict;`)
-    store.res.headers.append('Set-Cookie', `D_UROLE=${user.role};           path=/;  SameSite=Strict;`)
-    store.res.headers.append('Set-Cookie', `D_ULEVEL=${user.level};         path=/;  SameSite=Strict;`)
-    store.res.headers.append('Set-Cookie', `D_USTARS=${user.stars};         path=/;  SameSite=Strict;`)
-    store.res.headers.append('Set-Cookie', `D_UCREDS=${user.creds};         path=/;  SameSite=Strict;`)
-    store.res.headers.append('Set-Cookie', `D_UGIL=${user.gil};             path=/;  SameSite=Strict;`)
+    store.res.headers.append('Set-Cookie', `D_USLUG=${user.slug}; path=/; SameSite=Strict;`)
+    store.res.headers.append('Set-Cookie', `D_UNAME=${user.name}; path=/; SameSite=Strict;`)
+    store.res.headers.append('Set-Cookie', `D_UHONORIFIC=${user.honorific}; path=/; SameSite=Strict;`)
+    store.res.headers.append('Set-Cookie', `D_UTHUMB=${user.thumb}; path=/; SameSite=Strict;`)
+    store.res.headers.append('Set-Cookie', `D_UFLAIR=${user.flair}; path=/; SameSite=Strict;`)
+    store.res.headers.append('Set-Cookie', `D_UROLE=${user.role}; path=/; SameSite=Strict;`)
+    store.res.headers.append('Set-Cookie', `D_ULEVEL=${user.level}; path=/; SameSite=Strict;`)
+    store.res.headers.append('Set-Cookie', `D_USTARS=${user.stars}; path=/; SameSite=Strict;`)
+    store.res.headers.append('Set-Cookie', `D_UCREDS=${user.creds}; path=/; SameSite=Strict;`)
+    store.res.headers.append('Set-Cookie', `D_UGIL=${user.gil}; path=/; SameSite=Strict;`)
+
+    // Trigger page refresh. this is required as using location header to redirect doesn't work well with reading cookies
+    store.res.headers.append('Set-Cookie', `D_PAGE_RELOAD=true; path=/; SameSite=Strict;`)
 
     // Trigger UX
     if (isNewUser) {
-        store.res.headers.append('Set-Cookie', `D_MODAL_FRE=true;                           path=/; SameSite=Strict;`)
+        store.res.headers.append('Set-Cookie', `D_MODAL_FRE=true; path=/; SameSite=Strict;`)
 	} else {
-        store.res.headers.append('Set-Cookie', `D_TOAST_SUCCESS=You have been logged in;    path=/; SameSite=Strict;`)
+        store.res.headers.append('Set-Cookie', `D_TOAST_SUCCESS=You have been logged in; path=/; SameSite=Strict;`)
 	}
 
     // ------------------------------------------

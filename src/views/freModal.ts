@@ -20,7 +20,6 @@ export const freModal = async (store: Store) => {
                 ?.split("=")[1];
 
             if (triggerValue == "true") {
-                document.cookie = "D_MODAL_FRE=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;"
                 freModal.showModal();
             }
 

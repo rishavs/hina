@@ -6,7 +6,7 @@ export const Toasts = async (store: Store) => {
 
         <div id="success_toast" class="alert alert-success auto-hide hidden">
             <div class="flex flex-col">
-                <progress class="progress w-56 h-1 mb-1 animate-progress" value="0"></progress>
+                <progress class="progress w-full h-1 mb-1 animate-progress bg-primary-content" value="0"></progress>
                 <span id="success_toast_text"> ℹ️ Message was sent.</span>
             </div>
             <button class="btn btn-sm btn-ghost" onclick="successToast.classList.toggle('hidden')">✕</button>
@@ -31,7 +31,7 @@ export const Toasts = async (store: Store) => {
                 display: none;
             }
         }
-        .auto-hide {animation: autoHideElement 1s 2s forwards}
+        .auto-hide {animation: autoHideElement 1s 3s forwards}
     </style>
 
     <script>
@@ -46,16 +46,5 @@ export const Toasts = async (store: Store) => {
             }
 
         }
-        // Trigger toast on page load if needed (eg auth)
-        const successToastValue = document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("D_TOAST_SUCCESS=")) 
-            ?.split("=")[1];
-        if (successToastValue) {
-            // consume the cookie
-            document.cookie = "D_TOAST_SUCCESS=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            triggerToast("success", successToastValue);
-        }
-
     </script>`
 }

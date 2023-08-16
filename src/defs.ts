@@ -28,6 +28,7 @@ export type Store = {
 		url: 		URL,
         id: 		string | null,
 		method: 	string,
+		redirect: 	string | null,
 		cookies: 	Record<string, string>,
 	},
     env: Env,

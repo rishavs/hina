@@ -48,26 +48,47 @@ export const generateHTML = async (store: Store) => {
 
         </style>
         <script>
+            //--------------------------------------------------
+            //  Define Store. The clientside context will be stored here 
+            //--------------------------------------------------
+            let store = {}
 
-            let clientParams = new URLSearchParams(window.location.search)
-
-            if (clientParams.has("trigger")) {
-                const action = clientParams.get("trigger")
-                alert("triggered by ", action)
-                clientParams.delete("trigger")
-                history.replaceState(null, null, "?"+clientParams.toString());
-                
-                switch (action) {
-                    case "fre":
-                        alert("FRE")
-                        document.getElementById('userDetailsModal').showModal(); 
-                        break;       
-                    case "session":
-                        console.log("Starting new session")
-                        window.location.reload(true)
-                        break;
+            //--------------------------------------------------
+            //  Create a Map of the cookies for easy access
+            //--------------------------------------------------
+            const parseCookies = (cookieString) => {
+                let cookiesMap = {}
+                if (cookieString) {
+                    let cookies = cookieString.split(';')
+                    for (let cookie of cookies) {
+                        let [name, value] = cookie.split('=')
+                        cookiesMap[name.trim()] = value
+                    }
                 }
+                return cookiesMap
             }
+
+            store.cookies = parseCookies(document.cookie)
+            console.log("Cookies :")
+            console.log(JSON.stringify(store.cookies, null, 2))
+
+
+            //--------------------------------------------------
+            //  Trigger Client side actions based on cookie values
+            //--------------------------------------------------
+
+            
+            if (store.cookies["D_TOAST_SUCCESS"]){
+                document.cookie = "D_TOAST_SUCCESS=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                triggerToast("success", store.cookies["D_TOAST_SUCCESS"]);
+
+            } 
+
+            if (store.cookies['D_PAGE_RELOAD']) {
+                // delete the cookie
+                document.cookie = "D_PAGE_RELOAD=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                location.reload(true)
+            }  
         </script>
     </html>
     `

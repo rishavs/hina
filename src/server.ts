@@ -74,6 +74,7 @@ export default {
 				url: url,
 				id: null,
 				method: request.method,
+                redirect: null,
 				cookies: parseCookies(request.headers.get('Cookie')),
 			},
             page : {
@@ -177,7 +178,9 @@ export default {
             //     await generateHTML(store)
             // }
         }
-        // content = showAboutPage(request, env, ctx);
+        if (store.req.redirect) {
+            return Response.redirect(store.req.redirect, 302)
+        }
         return new Response(store.res.content, { status: store.res.status, headers: store.res.headers})
 	},
 };
