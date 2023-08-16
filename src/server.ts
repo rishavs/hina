@@ -119,48 +119,58 @@ export default {
         // store.res.headers.append('Content-Security-Policy', 'upgrade-insecure-requests')
 
 		// ------------------------------------------
-        // handle APIs
+        // Set Content Type
         // ------------------------------------------
         if (store.req.url.pathname.startsWith("/api")) {
             store.res.headers.append('content-type', 'application/json;charset=UTF-8')
             store.res.headers.append('Powered-by', 'API: Pika Pika Pika Choooo')
 
-			route = request.method + store.req.url.pathname
             // handlers = routes[request.method + store.req.url.pathname ];
 
-        // ------------------------------------------
-        // handle Dynamic Routes
-        // ------------------------------------------
+
         } else {
             store.res.headers.append('Powered-by', 'VIEW: Pika Pika Pika Choooo')
             store.res.headers.append('Content-Type', 'text/html; charset=UTF-8')
 
-            let urlFrag = store.req.url.pathname.split('/')
-
-            console.log("URL Fragments: ", urlFrag)
-            store.req.id   = urlFrag[2]
-
-            if (urlFrag[2]) {
-                urlFrag[2] = ":id"
-            }
-    
-            route = request.method + urlFrag.join('/')
-
         }
 
-        // ------------------------------------------
-        // Serve the chosen Handler
-        // ------------------------------------------
-        console.log("Rendering page : ", route)
-
         try {
+            // ------------------------------------------
+            // handle Static Routes
+            // ------------------------------------------
+			route = request.method + store.req.url.pathname
 
 			if (route in routes) {
                 handlers = routes[route];
             } else {
-                handlers = [() => { throw new Error("404")}]
+                // ------------------------------------------
+                // handle Dynamic Routes
+                // ------------------------------------------
+                let urlFrag = store.req.url.pathname.split('/')
+
+                console.log("URL Fragments: ", urlFrag)
+                store.req.id   = urlFrag[2]
+
+                if (urlFrag[2]) {
+                    urlFrag[2] = ":id"
+                }
+        
+                route = request.method + urlFrag.join('/')
+
+                if (route in routes) {
+                    handlers = routes[route];
+                } else {
+
+                    // ------------------------------------------
+                    // handle 404
+                    // ------------------------------------------
+                    handlers = [() => { throw new Error("404")}]
+                }
             }
 
+            // ------------------------------------------
+            // Serve the chosen Handler
+            // ------------------------------------------
             for (const handler of handlers) {
                 await handler(store)
             }
