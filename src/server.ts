@@ -10,20 +10,22 @@ import { buildAboutPage }       from './handlers/buildAboutPage';
 import { buildHomePage }        from './handlers/buildHomePage';
 import { buildPostDetailsPage } from './handlers/buildPostDetailsPage';
 import { loginGoogleUser }      from './handlers/loginGoogleUser';
+import { buildNewPostPage }     from './handlers/buildNewPostPage';
 
 let routes : Record<string, Array<Function>> = {
     // API Routes
     "GET/api/hello"             : [() => console.log("YOYO"), sayHello],
     "POST/api/login/google"     : [() => console.log("POSTING GOOLE AUTH"), loginGoogleUser],
-
     
     // Static Routes
     "GET/"                      : [ buildHomePage, generateHTML ],
     "GET/about"                 : [ buildAboutPage, generateHTML ],
-    "GET/logout"                : [ logout ],
-    // Auth routes
 
-    // Dynamic Routes
+    // Auth routes
+    "GET/logout"                : [ logout ],
+
+    // Posts
+    "GET/p/new"                 : [ buildNewPostPage, generateHTML ],
     "GET/p/:id"                 : [ buildPostDetailsPage, generateHTML ],
 }
 

@@ -155,4 +155,7 @@ export const loginGoogleUser = async (store: Store) => {
     store.res.status = 302
     store.res.headers.append('Location', redirectTo)
 
+    // store.res.headers.append('Location', `/authenticate?redirectTo=${redirectTo}`)
+
+
 }
