@@ -18,7 +18,8 @@ export const Header = async (store: Store) => /*html*/ `
         </div>
         
         <div class="navbar-end">
-            <label for="loginModal" class="btn modal-button bg-secondary mx-1 ${store.req.cookies.D_UID ? "hidden": "" }">Login</label>
+            ${store.req.cookies.D_UID ? 
+            /*html*/`
             <div class="dropdown dropdown-end mx-1 ${store.req.cookies ? "": "hidden" }">
                 <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
@@ -35,7 +36,12 @@ export const Header = async (store: Store) => /*html*/ `
                     <li><a>Settings</a></li>
                     <li><a href="/logout">Logout</a></li>
                 </ul>
-            </div>
+            </div>` 
+            : /*html*/`
+            <button onClick="loginModal.showModal()" class="btn modal-button bg-secondary mx-1">Login</button>
+            `
+            }
+
         </div>
     </div>
 

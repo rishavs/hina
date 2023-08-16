@@ -5,6 +5,7 @@ import { parseCookies }         from './utils';
 import { generateHTML }         from './views/generateHTML';
 
 import { sayHello }             from './handlers/sayHello';
+import { logout }               from './handlers/logout';
 import { buildAboutPage }       from './handlers/buildAboutPage';
 import { buildHomePage }        from './handlers/buildHomePage';
 import { buildPostDetailsPage } from './handlers/buildPostDetailsPage';
@@ -19,7 +20,7 @@ let routes : Record<string, Array<Function>> = {
     // Static Routes
     "GET/"                      : [ buildHomePage, generateHTML ],
     "GET/about"                 : [ buildAboutPage, generateHTML ],
-
+    "GET/logout"                : [ logout ],
     // Auth routes
 
     // Dynamic Routes

@@ -2,13 +2,15 @@ import { Store } from "../defs.js";
 
 export const loginModal = async (store: Store) => {  
     return /*html*/`
-        <input type="checkbox" id="loginModal" class="modal-toggle" />
-        <div class="modal modal-bottom sm:modal-middle">
-            <div class="modal-box relative">
-                <label for="loginModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                <h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
-                <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+        <dialog id="loginModal" class="modal">
+            <form method="dialog" class="modal-box">
+            
+                <div class="modal-action">
+                    <button class="btn">X</button>
+                </div>
 
+                <h3 class="font-bold text-lg">Hello!</h3>
+                <p class="py-4">Press ESC key or click the button below to close</p>
                 <script src="https://accounts.google.com/gsi/client" async defer></script>
                 <div id="g_id_onload"
                     data-client_id=${store.env.GOOGLE_KEY_ID}
@@ -29,10 +31,9 @@ export const loginModal = async (store: Store) => {
                     data-size="large"
                     data-logo_alignment="left">
                 </div>
-                
-            </div>
 
-        </div>
+            </form>
+        </dialog>
     `
 }
 // TODO: add 	data-nonce="biaqbm70g23" wherethe nonce is generated on serevr

@@ -1,14 +1,16 @@
 import { Header } from "./header";
 import { FiltersBar } from "./filtersBar";
 import { loginModal } from "./loginModal";
-import { userDetailsModal } from "./userDetailsModal";
+import { freModal } from "./freModal";
 import { Footer } from "./footer";
 import { Store } from "../defs";
+import { Alerts } from "./alerts";
+import { Toasts } from "./toasts";
 
 
 export const generateHTML = async (store: Store) => {
     store.res.content =     /*html*/`
-    <html lang="en" data-theme="emerald">
+    <html lang="en" data-theme="business">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +23,6 @@ export const generateHTML = async (store: Store) => {
             <meta property="og:type" content="article">
             <meta property="og:title" content="${store.page.title}">
 
-            <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
             <link href="/pub/styles.css" rel="stylesheet" type="text/css" />
 
             <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js" async defer></script>
@@ -33,11 +34,13 @@ export const generateHTML = async (store: Store) => {
             ${await Header(store)}
             ${await FiltersBar()}
             <progress id="page-progress" class="progress progress-primary h-1 w-full rounded-none" value="30" max="100"></progress>
+            ${await Alerts(store)}
+            ${await Toasts(store)}
             <div class="px-16 mt-16">
                 ${store.page.html}
             </div>
             ${await loginModal(store)}
-            ${await userDetailsModal(store)}
+            ${await freModal(store)}
             ${await Footer()}
         </body>
         <style>
