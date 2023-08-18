@@ -19,16 +19,27 @@ export const generateHTML = async (store: Store) => {
             <title>${store.page.title}</title>
             <link rel="icon" type="image/x-icon" href="/pub/favicon.ico">
 
-            <meta property="og:title" content="">
-            <meta property="og:type" content="">
-            <meta property="og:url" content="">
-            <meta property="og:image" content="">
-
-            <meta name="description" content="${store.page.descr}">
             <head prefix="og: http://ogp.me/ns#">
             <meta property="og:type" content="article">
             <meta property="og:title" content="${store.page.title}">
+            <meta property="og:description" content="Get from SEO newbie to SEO pro in 8 simple steps." />
+            <meta property="og:locale" content="en_GB" />
+            <meta property="og:url" content="">
+            <meta property="og:image" content="">
+            
+            <meta property="og:image:width" content="1200">
+            <meta property="og:image:height" content="630">
+            <meta property="og:image:alt" content="Get from SEO newbie to SEO pro in 8 simple steps.">
+            <meta property="og:video:type" content="video/mp4">
+            <meta property="og:video:width" content="640">
+            <meta property="og:video:height" content="360">
 
+
+
+            <meta name="description" content="${store.page.descr}">
+            <meta name="keywords" content="">
+            <meta name="author" content="">
+            
             <link href="/pub/styles.css" rel="stylesheet" type="text/css" />
 
         </head>
@@ -88,6 +99,9 @@ export const generateHTML = async (store: Store) => {
             }  else if (store.cookies["D_TOAST_SUCCESS"]){
                 document.cookie = "D_TOAST_SUCCESS=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 triggerToast("success", store.cookies["D_TOAST_SUCCESS"]);
+            } else if (store.cookies["D_MODAL_FRE"]){
+                document.cookie = "D_MODAL_FRE=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                freModal.showModal();
             } 
         </script>
     </html>

@@ -17,6 +17,7 @@
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "*",
+		"@tailwindcss/forms": "^0.5.4",
 		"daisyui": "^3.5.1",
 		"esbuild": "*",
 		"npm-run-all": "*",
