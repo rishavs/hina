@@ -11,7 +11,7 @@ import { Toasts } from "./toasts";
 export const generateHTML = async (store: Store) => {
     store.res.content =     /*html*/`
     <!doctype html>
-    <html lang="en" data-theme="business">
+    <html lang="en" data-theme="delight">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,8 +47,18 @@ export const generateHTML = async (store: Store) => {
             ${await Header(store)}
             ${await FiltersBar()}
             <progress id="page-progress" class="progress progress-primary h-1 w-full rounded-none" value="30" max="100"></progress>
-            ${await Alerts(store)}
-            ${await Toasts(store)}
+            <main class="bg-gray-50">
+                ${await Alerts(store)}
+                ${await Toasts(store)}
+
+                <!-- Two columns -->
+                <div class="mx-16 flex">
+                
+                </div>
+
+
+            </main>
+
             <div class="px-16 mt-16">
                 ${store.page.html}
             </div>

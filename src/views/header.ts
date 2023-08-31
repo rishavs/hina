@@ -9,12 +9,8 @@ export const Header = async (store: Store) => /*html*/ `
                 </svg>
             </button>
             <a class="btn btn-ghost normal-case text-xl" href="/">Digglu</a>
-            <a class="text-xl" href="/post/13">Post 13</a>
         </div>
         <div class="navbar-center">
-            <div class="form-control max-w-full">
-                <input type="text" placeholder="Search" class="input input-bordered" />
-            </div>
         </div>
         
         <div class="navbar-end">
