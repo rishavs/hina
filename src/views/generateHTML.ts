@@ -1,16 +1,19 @@
 import { Header } from "./header";
-import { FiltersBar } from "./filtersBar";
 import { loginModal } from "./loginModal";
 import { freModal } from "./freModal";
 import { Footer } from "./footer";
 import { Store } from "../defs";
 import { Alerts } from "./alerts";
 import { Toasts } from "./toasts";
+import { Drawer } from "./drawer";
+import { Floaters } from "./floater";
+import { SideCard } from "./sidepanel";
+import { PostCard } from "./postCard";
 
 
 export const generateHTML = async (store: Store) => {
     store.res.content =     /*html*/`
-    <!doctype html>
+    <!DOCTYPE html>
     <html lang="en" data-theme="delight">
         <head>
             <meta charset="UTF-8">
@@ -34,8 +37,6 @@ export const generateHTML = async (store: Store) => {
             <meta property="og:video:width" content="640">
             <meta property="og:video:height" content="360">
 
-
-
             <meta name="description" content="${store.page.descr}">
             <meta name="keywords" content="">
             <meta name="author" content="">
@@ -44,32 +45,65 @@ export const generateHTML = async (store: Store) => {
 
         </head>
         <body class="">
-            ${await Header(store)}
-            ${await FiltersBar()}
-            <progress id="page-progress" class="progress progress-primary h-1 w-full rounded-none" value="30" max="100"></progress>
-            <main class="bg-gray-50">
-                ${await Alerts(store)}
-                ${await Toasts(store)}
+        ${await Header(store)}
 
-                <!-- Two columns -->
-                <div class="mx-16 flex">
-                
-                </div>
+        <main class="min-h-screen">
 
+            <div class="drawer lg:drawer-open">
+                <input id="left-drawer-trigger" type="checkbox" class="drawer-toggle" />
+                <div class="drawer-content">
+                    <div class="flex">
+                    
+                        <div class = "min-w-xs w-full lg:basis-2/3 flex flex-col p-4 ">
 
-            </main>
+                            <div class="card card-compact -mx-4">
+                                <div class="card-body">
+                                    <div class="card-actions justify-end">
 
-            <div class="px-16 mt-16">
-                ${store.page.html}
+                                        <div class="dropdown dropdown-bottom dropdown-end">
+                                            <label tabindex="0" class="btn btn-neutral m-1 justify-right">Sorted By: Magic
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                </svg>
+                                        
+                                            </label>
+                                            <ul tabindex="0" class="dropdown-content z-10 menu p-2 shadow-xl bg-base-100 rounded-box w-52">
+                                                <li><a class="active">Magic</a></li>
+                                                <li><a>Digs</a></li>
+                                                <li><a>Discussions</a></li>
+                                                <li><a>Trending</a></li>
+                                                <li><a>Latest</a></li>
+                                            </ul>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="table p-0 m-0">
+                                <tbody>
+                                    ${await PostCard()}
+                                    ${await PostCard()}
+                                    ${await PostCard()}
+                                    ${await PostCard()}
+                                    ${await PostCard()}
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class = "basis-1/3 flex-none border-l-2 border-base-200 hidden lg:block p-4 pl-6">
+                            ${await SideCard()}
+                            ${await SideCard()}
+                        </div>      
+                    </div> 
+                </div> 
+                ${await Drawer()}
             </div>
-            ${await loginModal(store)}
-            ${await freModal(store)}
-            ${await Footer()}
-        </body>
-        <style>
-            
+        </main>
 
-        </style>
+        ${await Footer()}
+        ${await Floaters()}
+    
         <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js" async defer></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css" async defer>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -117,3 +151,31 @@ export const generateHTML = async (store: Store) => {
     </html>
     `
 }
+
+
+// ${await Header(store)}
+// ${await FiltersBar()}
+// <progress id="page-progress" class="progress progress-primary h-1 w-full rounded-none" value="30" max="100"></progress>
+// <main class="bg-gray-50">
+//     ${await Alerts(store)}
+//     ${await Toasts(store)}
+
+//     <!-- Two columns -->
+//     <div class="mx-16 flex">
+    
+//     </div>
+
+
+// </main>
+
+// <div class="px-16 mt-16">
+//     ${store.page.html}
+// </div>
+// ${await loginModal(store)}
+// ${await freModal(store)}
+// ${await Footer()}
+// </body>
+// <style>
+
+
+// </style>
