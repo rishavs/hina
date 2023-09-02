@@ -17,7 +17,7 @@ export const buildPostDetailsPage = async (store: Store) => {
     console.log(post)
 
     store.page.html = /*html*/ `
-        <article class="min-h-screen">
+        <article class="">
             <h1>Page Id: ${store.req.id}</h1>
             <h2>${post.title}</h2>
             <p>${post.content}</p>

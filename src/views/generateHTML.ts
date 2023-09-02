@@ -55,6 +55,8 @@ export const generateHTML = async (store: Store) => {
                     <div class="flex">
                     
                         <div class = "min-w-xs w-full lg:basis-2/3 flex flex-col p-4 ">
+                            
+                            ${store.page.html}
 
                             <div class="card card-compact -mx-4">
                                 <div class="card-body">
