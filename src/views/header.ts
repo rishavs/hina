@@ -22,10 +22,10 @@ export const Header = async (store: Store) => {
             <div class="dropdown dropdown-end mx-1 ${store.req.cookies.D_UID ? "": "hidden" }">
                 <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
-                        <img src="/bm.png" />
+                        <img src="/pub/bm.png" />
                     </div>
                 </label>
-                <ul tabindex="0" class="z-20 mt-3 p-2 shadow menu menu-lg lg:menu-xs dropdown-content bg-base-100 rounded-box w-52">
+                <ul tabindex="0" class="z-20 mt-3 p-2 shadow menu menu-lg lg:menu-md dropdown-content bg-base-100 rounded-box w-52">
                     <li>
                         <a class="justify-between">
                             Profile

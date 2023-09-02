@@ -101,7 +101,12 @@ export default {
         console.log("Cookies: ", store.req.cookies)
         if (!store.req.cookies.D_SID) {
             store.res.headers.append('Set-Cookie', `D_SID=${nanoid()}; Path=/; HttpOnly; Secure; SameSite=Strict`)
-        }
+        }        
+
+        // ------------------------------------------
+        // TODO - Content Security Policy
+        // ------------------------------------------
+        // see https://developers.google.com/identity/gsi/web/guides/get-google-api-clientid#content_security_policy
 
         // ------------------------------------------
         // Put on the HELMET!!! TODO

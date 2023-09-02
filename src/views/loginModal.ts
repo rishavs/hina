@@ -1,6 +1,6 @@
 import { Store } from "../defs.js";
 
-export const loginModal = async (store: Store) => {  
+export const LoginModal = async (store: Store) => {  
     return /*html*/`
         <dialog id="loginModal" class="modal">
             <form method="dialog" class="modal-box">

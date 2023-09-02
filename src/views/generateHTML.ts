@@ -1,6 +1,6 @@
 import { Header } from "./header";
-import { loginModal } from "./loginModal";
-import { freModal } from "./freModal";
+import { LoginModal } from "./loginModal";
+import { FREModal } from "./freModal";
 import { Footer } from "./footer";
 import { Store } from "../defs";
 import { Alerts } from "./alerts";
@@ -98,6 +98,10 @@ export const generateHTML = async (store: Store) => {
                     </div> 
                 </div> 
                 ${await Drawer()}
+                ${await LoginModal(store)}
+                ${await FREModal(store)}
+                ${await Alerts(store)}
+                ${await Toasts(store)}
             </div>
         </main>
 
@@ -106,7 +110,6 @@ export const generateHTML = async (store: Store) => {
     
         <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js" async defer></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css" async defer>
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
         
         <script>
             //--------------------------------------------------
@@ -151,31 +154,3 @@ export const generateHTML = async (store: Store) => {
     </html>
     `
 }
-
-
-// ${await Header(store)}
-// ${await FiltersBar()}
-// <progress id="page-progress" class="progress progress-primary h-1 w-full rounded-none" value="30" max="100"></progress>
-// <main class="bg-gray-50">
-//     ${await Alerts(store)}
-//     ${await Toasts(store)}
-
-//     <!-- Two columns -->
-//     <div class="mx-16 flex">
-    
-//     </div>
-
-
-// </main>
-
-// <div class="px-16 mt-16">
-//     ${store.page.html}
-// </div>
-// ${await loginModal(store)}
-// ${await freModal(store)}
-// ${await Footer()}
-// </body>
-// <style>
-
-
-// </style>

@@ -1,6 +1,6 @@
 import { Store } from "../defs.js";
 
-export const freModal = async (store: Store) => {  
+export const FREModal = async (store: Store) => {  
     return /*html*/`
         <!-- Open the modal using ID.showModal() method -->
         <dialog id="freModal" class="modal">
