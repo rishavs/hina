@@ -46,15 +46,24 @@ export type Store = {
 
 export type Post = {
 	slug: 			string,
-	authorId: 		string,
+	author_id: 		string,
+	category_id: 	number,
 	title: 			string,
 	link: 			string,
 	thumb: 			string,
 	content: 		string,
-	digs: 			number,
-	buries: 		number,
-	created: 		string,
+	digs_count:		number,
+	buries_count:	number,
+	comments_count:	number,
+	saves_count:	number,
+	is_locked:		boolean,
+	locked_for:		string,
+	created_at:		string,
+	updated_at:		string,
+	archived_at:	string,
+	deleted_at:		string,
 }
+
 
 export type User = {
 	id: 			string,

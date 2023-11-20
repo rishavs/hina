@@ -11,17 +11,18 @@
 		"deploy": "wrangler pages publish dist"
 	},
 	"dependencies": {
-		"@planetscale/database": "*",
-		"jose": "*",
-		"nanoid": "^3.3.6"
+		"@planetscale/database": "latest",
+		"jose": "latest",
+		"nanoid": "latest"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "*",
-		"@tailwindcss/forms": "^0.5.4",
-		"daisyui": "^3.5.1",
-		"esbuild": "*",
-		"npm-run-all": "*",
-		"tailwindcss": "^3.3.3",
-		"wrangler": "*"
+		"@cloudflare/workers-types": "latest",
+		"@tailwindcss/typography": "latest",
+		"@tailwindcss/forms": "latest",
+		"daisyui": "latest",
+		"esbuild": "latest",
+		"npm-run-all": "latest",
+		"tailwindcss": "latest",
+		"wrangler": "latest"
 	}
 }

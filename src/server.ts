@@ -11,10 +11,12 @@ import { buildHomePage }        from './handlers/buildHomePage';
 import { buildPostDetailsPage } from './handlers/buildPostDetailsPage';
 import { loginGoogleUser }      from './handlers/loginGoogleUser';
 import { buildNewPostPage }     from './handlers/buildNewPostPage';
+import { submitNewPostForm }    from './handlers/submitNewPostForm';
 
 let routes : Record<string, Array<Function>> = {
     // API Routes
     "GET/api/hello"             : [() => console.log("YOYO"), sayHello],
+    "POST/api/submitNewPostForm": [() => console.log("POSTING NEW POST"), submitNewPostForm],
     "POST/api/login/google"     : [() => console.log("POSTING GOOLE AUTH"), loginGoogleUser],
     
     // Static Routes

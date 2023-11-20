@@ -1,11 +1,42 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ["./src/views/*.ts"],
+    content: ["./src/**/*.ts"],
     daisyui: {
         themes: [
-            "cupcake", "business",
+            "light",
+            "dark",
+            "cupcake",
+            "bumblebee",
+            "emerald",
+            "corporate",
+            "synthwave",
+            "retro",
+            "cyberpunk",
+            "valentine",
+            "halloween",
+            "garden",
+            "forest",
+            "aqua",
+            "lofi",
+            "pastel",
+            "fantasy",
+            "wireframe",
+            "black",
+            "luxury",
+            "dracula",
+            "cmyk",
+            "autumn",
+            "business",
+            "acid",
+            "lemonade",
+            "night",
+            "coffee",
+            "winter",
+            "dim",
+            "nord",
+            "sunset",
             {
-                delight: {
+                mytheme: {
                     "primary": "#fde68a",
                     "secondary": "#f472b6",
                     "accent": "#075985",
@@ -14,7 +45,7 @@ module.exports = {
                     "success": "#52fa7c",
                     "warning": "#fb923c",
                     "error": "#ff5757",
-                    "base-100": "#f3f4f6",
+                    "base-100": "#fafafa",
                 },
             },
         ],
@@ -23,8 +54,8 @@ module.exports = {
         extend: {},
     },
     plugins: [
-        require('@tailwindcss/forms'),
-        require("daisyui")
+        require('@tailwindcss/typography'),
+        require("daisyui"),
     ],
 }
 
