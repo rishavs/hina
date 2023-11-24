@@ -1,7 +1,6 @@
 import { fetchAllPosts } from "../database";
 import { Post, Store } from "../defs.js";
-import { NewPostCard } from "../views/newPostCard";
-import { PostCard } from "../views/postCard.js";
+import {PostCard } from "../views/PostCard";
 
 export const buildHomePage = async (store: Store) => {
     store.page.title = "Home Page";
@@ -17,18 +16,24 @@ export const buildHomePage = async (store: Store) => {
     store.page.html = /*html*/ `
         <article class="">
     
-            <div class="card card-compact -mx-4">
+            <div class="card card-compact -mx-5">
                 <div class="card-body">
-                    <div class="card-actions justify-end">
+                    <div class="card-actions justify-between">
+
+                        <div class="">
+                            <span class="menu-title text-lg ">Hey there, where will you go today?</span>
+
+                        </div>
 
                         <div class="dropdown dropdown-bottom dropdown-end">
-                            <label tabindex="0" class="btn btn-neutral m-1 justify-right">Sorted By: Magic
+
+                            <label tabindex="0" class="btn btn-base-300 justify-right border">Sorted By: Magic
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                 </svg>
                         
                             </label>
-                            <ul tabindex="0" class="dropdown-content z-10 menu p-2 shadow-xl bg-base-100 rounded-box w-52">
+                            <ul tabindex="0" class="dropdown-content z-10 menu p-2 shadow-xl rounded-box border bg-base-200 w-52">
                                 <li><a class="active">Magic</a></li>
                                 <li><a>Digs</a></li>
                                 <li><a>Discussions</a></li>
@@ -40,19 +45,9 @@ export const buildHomePage = async (store: Store) => {
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col gap-4">
-           
-                ${NewPostCard()}
-                ${NewPostCard()}
-                ${NewPostCard()}
+            <div class="flex flex-col gap-2">
+                ${postsList}
             </div>
-
-            <table class="table p-0 m-0">
-                <tbody>
-                    ${postsList}
-                
-                </tbody>
-            </table>
         </article>
     `;
 };

@@ -8,7 +8,6 @@ import { Toasts } from "./toasts";
 import { Drawer } from "./drawer";
 import { Floaters } from "./floater";
 import { SideCard } from "./sidepanel";
-import { PostCard } from "./postCard";
 
 
 export const generateHTML = async (store: Store) => {
@@ -48,14 +47,14 @@ export const generateHTML = async (store: Store) => {
         <noscript>You need to enable JavaScript to run this app.</noscript>
         ${await Header(store)}
 
-        <main class="min-h-screen lg:px-12">
+        <main class="min-h-screen">
 
             <div class="drawer lg:drawer-open">
                 <input id="left-drawer-trigger" type="checkbox" class="drawer-toggle" />
                 <div class="drawer-content">
                     <div class="flex">
                     
-                        <div class = "min-w-xs w-full lg:basis-2/3 flex flex-col ">
+                        <div class = "min-w-xs w-full lg:basis-2/3 flex flex-col lg:mx-8">
                             
                             ${store.page.html}
 

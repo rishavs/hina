@@ -9,7 +9,7 @@ export const Header = async (store: Store) => {
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </label>
-            <a class="btn btn-ghost normal-case text-xl" href="/">Digglu</a>
+            <a class="btn btn-ghost normal-case text-error-content text-3xl" href="/">Digglu</a>
         </div>
         <div class="navbar-center">
         </div>

@@ -39,6 +39,7 @@ module.exports = {
                 aquafina: {
                     ...require("daisyui/src/theming/themes")["pastel"],
                     "error": "#f472b6",
+                    "warning": "#ead173",
                     "neutral": "#3b8ac4",
                     "neutral-content": "#eeeeff",
 
