@@ -90,3 +90,18 @@ latest
 dig_score = post digs - post buries + (sum of comments digs)/weight
 decay_score
 
+types of post cards;
+self
+  title
+  content
+link
+  title
+  image + 
+
+colors:
+    header
+    bg
+    drawer & side panel
+    Digs
+    Prominent control
+    subtle control

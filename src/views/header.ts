@@ -2,14 +2,14 @@ import { Store } from "../defs.js";
 
 export const Header = async (store: Store) => {
     return /*html*/ `
-    <header class="navbar bg-neutral lg:px-8">
+    <header class="navbar bg-neutral lg:px-12">
         <div class="navbar-start">
-            <label for="left-drawer-trigger" class="btn btn-square btn-ghost drawer-button lg:hidden text-base-100">
+            <label for="left-drawer-trigger" class="btn btn-square btn-ghost drawer-button lg:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </label>
-            <a class="btn btn-ghost normal-case text-xl text-base-100" href="/">Digglu</a>
+            <a class="btn btn-ghost normal-case text-xl" href="/">Digglu</a>
         </div>
         <div class="navbar-center">
         </div>
@@ -37,7 +37,7 @@ export const Header = async (store: Store) => {
                 </ul>
             </div>` 
             : /*html*/`
-            <button onClick="loginModal.showModal()" class="btn modal-button bg-secondary mx-1">Login</button>
+            <button onClick="loginModal.showModal()" class="btn btn-error mx-1">Login</button>
             `
             }
 

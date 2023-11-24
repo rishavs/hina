@@ -1,20 +1,20 @@
-import { fetchAllPosts } from "../database"
-import { Post, Store } from '../defs.js'
-import { PostCard } from "../views/postCard.js"
-
+import { fetchAllPosts } from "../database";
+import { Post, Store } from "../defs.js";
+import { NewPostCard } from "../views/newPostCard";
+import { PostCard } from "../views/postCard.js";
 
 export const buildHomePage = async (store: Store) => {
-    store.page.title = "Home Page"
-    store.page.descr = "This is the Home page"
+    store.page.title = "Home Page";
+    store.page.descr = "This is the Home page";
 
-    const data = await fetchAllPosts(store)
+    const data = await fetchAllPosts(store);
     // console.log(data)
 
-    let postsList = ""
+    let postsList = "";
     for (var item of data as Post[]) {
-        postsList += await PostCard(item)
+        postsList += await PostCard(item);
     }
-    store.page.html = /*html*/`
+    store.page.html = /*html*/ `
         <article class="">
     
             <div class="card card-compact -mx-4">
@@ -40,6 +40,12 @@ export const buildHomePage = async (store: Store) => {
                     </div>
                 </div>
             </div>
+            <div class="flex flex-col gap-4">
+           
+                ${NewPostCard()}
+                ${NewPostCard()}
+                ${NewPostCard()}
+            </div>
 
             <table class="table p-0 m-0">
                 <tbody>
@@ -48,5 +54,5 @@ export const buildHomePage = async (store: Store) => {
                 </tbody>
             </table>
         </article>
-    `
-}
+    `;
+};

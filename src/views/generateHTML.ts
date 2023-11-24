@@ -14,7 +14,7 @@ import { PostCard } from "./postCard";
 export const generateHTML = async (store: Store) => {
     store.res.content =     /*html*/`
     <!DOCTYPE html>
-    <html lang="en" data-theme="cupcake">
+    <html lang="en" data-theme="aquafina">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,19 +48,19 @@ export const generateHTML = async (store: Store) => {
         <noscript>You need to enable JavaScript to run this app.</noscript>
         ${await Header(store)}
 
-        <main class="min-h-screen">
+        <main class="min-h-screen lg:px-12">
 
             <div class="drawer lg:drawer-open">
                 <input id="left-drawer-trigger" type="checkbox" class="drawer-toggle" />
                 <div class="drawer-content">
                     <div class="flex">
                     
-                        <div class = "min-w-xs w-full lg:basis-2/3 flex flex-col p-4 ">
+                        <div class = "min-w-xs w-full lg:basis-2/3 flex flex-col ">
                             
                             ${store.page.html}
 
                         </div>
-                        <div class = "basis-1/3 flex-none border-l-2 border-base-200 hidden lg:block p-4 pl-6">
+                        <div class = "basis-1/3 hidden lg:block">
                             ${await SideCard(store)}
                             ${await SideCard(store)}
                         </div>      

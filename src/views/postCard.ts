@@ -11,8 +11,8 @@ export const PostCard = (post: Post) => {
     return /*html*/ `
     <tr class="hover:shadow">
       <td>
-        <div class="flex h-16 lg:h-28  space-x-2 -mx-8 lg:-mx-2 ">
-          <button class="btn btn-primary btn-xs h-full w-12 lg:w-16 rounded-none lg:rounded lg:rounded-r-none py-1 flex-col">
+        <div class="flex h-16 lg:h-28 space-x-2 -mx-8 lg:-mx-2 ">
+          <button class="btn btn-accent btn-xs h-full w-12 lg:w-16 rounded-none lg:rounded lg:rounded-r-none py-1 flex-col">
             <span class="font-bold text-lg">${post.digs_count}</span>
             <span class="border-t-1">Digs</span>
           </button>
@@ -23,9 +23,9 @@ export const PostCard = (post: Post) => {
             </div>
           </div>
 
-          <div class="">
-            <h3 class="line-clamp-2 items-center font-bold min-h-8">
-              <span> ${post.title} </span>
+          <div class=" w-full">
+            <h3 class="line-clamp-2 items-center font-bold text-neutral-content min-h-8">
+              <a href="/p/${post.slug}"> ${post.title} </a>
             </h3>
 
             <p class=" hidden opacity-50 lg:line-clamp-2 m-0 lg:my-1">${post.content}</p>
