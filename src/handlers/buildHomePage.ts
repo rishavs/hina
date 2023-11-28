@@ -16,7 +16,7 @@ export const buildHomePage = async (store: Store) => {
     store.page.html = /*html*/ `
         <article class="">
     
-            <div class="card card-compact -mx-5">
+            <div class="card card-compact w-full -mx-5">
                 <div class="card-body">
                     <div class="card-actions justify-between">
 
@@ -27,7 +27,7 @@ export const buildHomePage = async (store: Store) => {
 
                         <div class="dropdown dropdown-bottom dropdown-end">
 
-                            <label tabindex="0" class="btn btn-base-300 justify-right border">Sorted By: Magic
+                            <label tabindex="0" class="btn btn-neutral btn-outline justify-right ">Sorted By: Magic
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                 </svg>
@@ -45,7 +45,8 @@ export const buildHomePage = async (store: Store) => {
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col gap-2">
+       
+            <div class="flex flex-col gap-2 lg:gap-4">
                 ${postsList}
             </div>
         </article>
