@@ -26,7 +26,7 @@ export const fetchAllPosts = async (store: Store) => {
 export const fetchSpecificPostById = async (store: Store) => {
     let conn = connectToPlanetScale(store)
 
-    let result = await conn.execute('select * from posts where id=:id', {id : store.req.id})
+    let result = await conn.execute('select * from posts where slug=:slug', {slug : store.req.slug})
     return result
 }
 

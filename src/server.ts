@@ -28,7 +28,7 @@ let routes : Record<string, Array<Function>> = {
 
     // Posts
     "GET/p/new"                 : [ buildNewPostPage, generateHTML ],
-    "GET/p/:id"                 : [ buildPostDetailsPage, generateHTML ],
+    "GET/p/:slug"                 : [ buildPostDetailsPage, generateHTML ],
 }
 
 export default {
@@ -76,7 +76,7 @@ export default {
 			req: {
                 raw: request,
 				url: url,
-				id: null,
+				slug: null,
 				method: request.method,
                 redirect: null,
 				cookies: parseCookies(request.headers.get('Cookie')),
@@ -156,10 +156,10 @@ export default {
                 let urlFrag = store.req.url.pathname.split('/')
 
                 console.log("URL Fragments: ", urlFrag)
-                store.req.id   = urlFrag[2]
+                store.req.slug   = urlFrag[2]
 
                 if (urlFrag[2]) {
-                    urlFrag[2] = ":id"
+                    urlFrag[2] = ":slug"
                 }
         
                 route = request.method + urlFrag.join('/')

@@ -17,7 +17,7 @@ export const Header = async (store: Store) => {
         <div class="navbar-end">
             ${store.req.cookies.D_UID ? 
             /*html*/`
-            <a href="/p/new" class="btn modal-button bg-primary mx-1">New Post</a>
+            <a href="/p/new" class="btn btn-error mx-1">New Post</a>
 
             <div class="dropdown dropdown-end mx-1 ${store.req.cookies.D_UID ? "": "hidden" }">
                 <label tabindex="0" class="btn btn-ghost btn-circle avatar">
@@ -37,6 +37,7 @@ export const Header = async (store: Store) => {
                 </ul>
             </div>` 
             : /*html*/`
+            
             <button onClick="loginModal.showModal()" class="btn btn-error mx-1">Login</button>
             `
             }

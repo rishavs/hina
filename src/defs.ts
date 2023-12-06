@@ -26,7 +26,7 @@ export type Store = {
 	req: {
 		raw: 		Request,
 		url: 		URL,
-        id: 		string | null,
+        slug: 		string | null,
 		method: 	string,
 		redirect: 	string | null,
 		cookies: 	Record<string, string>,

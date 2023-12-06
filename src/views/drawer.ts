@@ -1,7 +1,7 @@
-export const Drawer = async () => /*html*/`
-    <div class="drawer-side z-20">
-        <label for="left-drawer-trigger" class="drawer-overlay"></label> 
-        <ul class="menu flex flex-col h-full bg-base-200 lg:w-80 overflow-auto px-12">
+export const Drawer = async () => /*html*/ `
+    <div class="drawer-side z-20 ">
+        <label for="left-drawer-trigger" class="drawer-overlay"></label>
+        <ul class="menu flex flex-col h-full bg-base-200 lg:w-80 overflow-auto px-12 font-medium lg:menu-lg">
             <li class="menu-title text-lg ">Categories
             </li>
             <!-- Sidebar content here -->
@@ -16,8 +16,8 @@ export const Drawer = async () => /*html*/`
             <li><a>8: Entertainment</a></li>
             <li><a>9: Funny</a></li>
             <li><a>10: Cute Stuff</a></li>
-
+    
             <li><a>0: Everything Else</a></li>
         </ul>
     </div>
-`
+ `;
