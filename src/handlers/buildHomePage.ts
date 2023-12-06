@@ -1,6 +1,6 @@
 import { fetchAllPosts } from "../database";
 import { Post, Store } from "../defs.js";
-import {PostCard } from "../views/PostCard";
+import { PostCard } from "../views/PostCard";
 
 export const buildHomePage = async (store: Store) => {
     store.page.title = "Home Page";
