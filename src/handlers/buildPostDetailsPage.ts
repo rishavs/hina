@@ -1,5 +1,5 @@
 import { fetchSpecificPostById } from "../database";
-import { Store, Post } from "../defs.js";
+import { Store, Post } from "../defs";
 import { CommentsTree } from "../views/commentsTree";
 
 export const buildPostDetailsPage = async (store: Store) => {

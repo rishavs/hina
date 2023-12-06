@@ -1,5 +1,5 @@
 import { connect, Connection } from '@planetscale/database'
-import { Store, User } from './defs.js'
+import { Store, User } from './defs'
 
 // ------------------------------------------
 // Configure DB Connection

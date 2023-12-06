@@ -1,4 +1,4 @@
-import { Store } from "../defs.js";
+import { Store } from "../defs";
 
 export const Alerts = async (store: Store) => {  
     return /*html*/`
