@@ -9,9 +9,9 @@ import { Post } from "../defs";
 export const PostCard = (post: Post) => {
   return /*html*/ `
     <article>
-        <div class="card card-side card-compact text-accent-content w-full h-20 gap-2 lg:gap-2 lg:h-28 bg-base-200 shadow hover:bg-base-100">
+        <div class="flex text-accent-content w-full h-20 lg:h-28">
 
-            <button class="btn btn-warning h-auto w-10 lg:w-16 rounded-none lg:rounded-l-lg"
+            <button class="btn btn-warning h-auto w-10 lg:w-16 rounded-none rounded-l-lg"
                 onClick="console.log(this.children[0].children[0].children[0].style.cssText = '--value:90;');"
             >
                 <div class="flex flex-col gap-3 rounded-box">
@@ -23,22 +23,22 @@ export const PostCard = (post: Post) => {
             </button>
 
             <div class="avatar">
-                <div class="w-16 lg:w-32 rounded-md">
+                <div class="w-16 lg:w-32 rounded-r-md">
                     <img src="${post.thumb}" alt="thumb" loading="lazy" decoding="async" />
                 </div>
             </div>
 
-            <div class="flex flex-col justify-between w-full pt-2 px-1 lg:px-2 lg:divide-y">
+            <div class="flex flex-col justify-between w-full py-1 px-2 lg:divide-y">
 
-                <h1 class="card-title line-clamp-2 text-xs lg:text-base ">
+                <h1 class="font-semibold line-clamp-2 text-xs lg:text-lg ">
                     <span class="inline-flex items-baseline">
                         <img src="https://images.unsplash.com/photo-1550510537-89d5433de5cb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80" alt="" class="h-5 w-5 self-center rounded-md" />
                         <span>&nbsp</span>
                     </span>
-                    <a href="/p/${post.slug}">${post.title}</a>
+                    <a href="/p/${post.slug}" class="leading-relaxed">${post.title}</a>
                 </h1>
 
-                <div class="card-actions flex justify-between gap-2 pb-2 lg:py-2 text-xs">
+                <div class="flex justify-between gap-2 py-1 text-xs">
                 
                     <div class="flex gap-x-4">
                         <button class="btn btn-error btn-ghost btn-xs">
@@ -76,7 +76,7 @@ export const PostCard = (post: Post) => {
                 </div>
             </div>
 
-            <button class="btn btn-neutral h-auto w-10 lg:w-16 rounded-none lg:rounded-r-lg text-neutral-content">
+            <button class="btn btn-neutral h-auto w-10 lg:w-16 rounded-none rounded-r-md text-neutral-content">
                 <div class="flex flex-col gap-3 rounded-box">
                     <span class="countdown self-center lg:text-xl ">
                         <span style="--value:${post.comments_count};"></span>
