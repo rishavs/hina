@@ -36,13 +36,22 @@ module.exports = {
             "nord",
             "sunset",
             {
+                darksun: {
+                    ...require("daisyui/src/theming/themes")["dark"],
+                    "primary": "#0ea5e9",
+                    "error": "#f472b6",
+                    "neutral": "#334155",
+
+                    "neutral-content": "#f1f5f9",
+                },
+            },
+            {
                 aquafina: {
                     ...require("daisyui/src/theming/themes")["pastel"],
                     "error": "#f472b6",
                     "warning": "#ead173",
                     "neutral": "#3b8ac4",
                     "neutral-content": "#eeeeff",
-                    "primary": "slate",
 
                     "--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes
                     "--rounded-btn": "0.5rem", // border radius rounded-btn utility class, used in buttons and similar element

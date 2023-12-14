@@ -23,12 +23,9 @@ export const SideCard = async (store: Store) => {
 
 
     return /*html*/ `
-    <div class="card">
-        <ul class="menu bg-neutral rounded-lg my-4 mr-12 divide-y-[0.1px] divide-current">
-            <li class="menu-title text-base-100">Top 10 Posts</li>
-            ${postsList}
-        </ul>
-    </div>
-
-    `
+    <ul class="menu border border-black shadow-xl bg-neutral rounded-lg mr-12 divide-y-[0.1px] divide-current">
+        <li class="menu-title">Top 10 Posts</li>
+        ${postsList}
+    </ul>
+   `
 }

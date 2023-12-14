@@ -46,7 +46,7 @@ export const buildHomePage = async (store: Store) => {
                 </div>
             </div>
        
-            <div class="flex flex-col lg:gap-4 divide-y lg:divide-none">
+            <div class="flex flex-col lg:gap-4 gap-1">
                 ${postsList}
             </div>
         </article>

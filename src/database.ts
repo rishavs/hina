@@ -17,9 +17,37 @@ const connectToPlanetScale = (store: Store): Connection => {
     return connect(DBConfig)
 }
 
-export const fetchAllPosts = async (store: Store) => {
+export const fetchAllPosts = async (store: Store, cat?:Number) => {
     let conn = connectToPlanetScale(store)
-    let result = await conn.execute('select * from posts limit 10')
+    let result = await conn.execute(`
+        SELECT
+            slug,
+            category_id,
+            title,
+            thumb,
+            digs_count,
+            buries_count,
+            comments_count,
+            saves_count,
+            created_at,
+            archived_at,
+            deleted_at,
+            Score,
+            Recency,
+            (Score > 100 AND Recency > 90) AS is_trending,
+            Score / Recency * 100 AS Decayed_Score
+        FROM (
+            SELECT
+                *,
+                (0.4 * digs_count + 0.3 * comments_count + 0.2 * saves_count) AS Score,
+                (100 * LOG(2 + (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(created_at)) / 3600)) AS Recency
+            FROM posts
+            WHERE 
+                deleted_at IS NULL
+                ${cat? ' AND category_id = ' + cat : ''}
+        ) AS subquery
+        ORDER BY Decayed_Score DESC
+        LIMIT 10;`)
     return result.rows
 }
 

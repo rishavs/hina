@@ -1,39 +1,18 @@
-import {
-    Header
-} from "./header";
-import {
-    LoginModal
-} from "./loginModal";
-import {
-    FREModal
-} from "./freModal";
-import {
-    Footer
-} from "./footer";
-import {
-    Store
-} from "../defs";
-import {
-    Alerts
-} from "./alerts";
-import {
-    Toasts
-} from "./toasts";
-import {
-    Drawer
-} from "./drawer";
-import {
-    Floaters
-} from "./floater";
-import {
-    SideCard
-} from "./sidepanel";
-
+import { Header } from "./header";
+import { LoginModal } from "./loginModal";
+import { FREModal } from "./freModal";
+import { Footer } from "./footer";
+import { Store } from "../defs";
+import { Alerts } from "./alerts";
+import { Toasts } from "./toasts";
+import { Drawer } from "./drawer";
+import { Floaters } from "./floater";
+import { SideCard } from "./sidepanel";
 
 export const generateHTML = async (store: Store) => {
     store.res.content = /*html*/ `
 <!DOCTYPE html>
-<html lang="en" data-theme="aquafina">
+<html lang="en" data-theme="darksun">
 
 <head>
     <meta charset="UTF-8">
@@ -67,21 +46,19 @@ export const generateHTML = async (store: Store) => {
 
 <body class="">
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    ${await Header(store)}
 
-    <main class="min-h-screen pt-8">
+    <main class="min-h-screen">
 
         <div class="drawer lg:drawer-open">
             <input id="left-drawer-trigger" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content">
                 <div class="flex">
 
-                    <div class="min-w-xs w-full lg:basis-2/3 flex flex-col lg:px-4">
-
+                    <div class="min-w-xs w-full lg:basis-2/3 flex flex-col lg:px-4 pt-10">
+                        ${await Header(store)}
                         ${store.page.html}
-
                     </div>
-                    <div class="basis-1/3 hidden lg:flex lg:flex-col">
+                    <div class="basis-1/3 hidden lg:flex lg:flex-col gap-4 pt-48">
                         ${await SideCard(store)}
                         ${await SideCard(store)}
                     </div>

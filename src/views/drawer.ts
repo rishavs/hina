@@ -1,8 +1,10 @@
 export const Drawer = async () => /*html*/ `
     <div class="drawer-side z-20 ">
         <label for="left-drawer-trigger" class="drawer-overlay"></label>
-        <ul class="menu flex flex-col h-full bg-base-200 lg:w-80 overflow-auto px-12 font-medium lg:menu-lg">
-            <li class="menu-title text-lg ">Categories
+        <ul class="menu flex flex-col h-full lg:w-80 overflow-auto px-12 font-medium lg:menu-lg pt-24">
+            <li class="menu-title ">
+                <p>Hey there, </p>
+                <p>where will you go today?</p>
             </li>
             <!-- Sidebar content here -->
             <li><a class="active">All</a></li>
