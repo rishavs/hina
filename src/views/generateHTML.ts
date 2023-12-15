@@ -54,11 +54,11 @@ export const generateHTML = async (store: Store) => {
             <div class="drawer-content">
                 <div class="flex">
 
-                    <div class="min-w-xs w-full lg:basis-2/3 flex flex-col lg:px-4 pt-10">
+                    <div class="min-w-xs w-full lg:basis-2/3 flex flex-col lg:px-4 lg:pt-10">
                         ${await Header(store)}
                         ${store.page.html}
                     </div>
-                    <div class="basis-1/3 hidden lg:flex lg:flex-col gap-4 pt-48">
+                    <div class="basis-1/3 hidden lg:flex lg:flex-col gap-4 pt-48 mt-2">
                         ${await SideCard(store)}
                         ${await SideCard(store)}
                     </div>

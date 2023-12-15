@@ -2,14 +2,14 @@ import { Store } from "../defs";
 
 export const Header = async (store: Store) => {
     return /*html*/ `
-    <header class="navbar bg-neutral lg:rounded-box border border-base-300 shadow-xl h-20 py-4">
-        <div class="navbar-start">
-            <label for="left-drawer-trigger" class="btn btn-square btn-ghost drawer-button lg:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current">
+    <header class="navbar sticky top-0 bg-neutral lg:rounded-btn border border-base-300 shadow-xl h-8 lg:h-20 z-50">
+        <div class="navbar-start py-0">
+            <label for="left-drawer-trigger" class="btn btn-sm btn-square btn-ghost drawer-button lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </label>
-            <a class="btn btn-ghost drop-shadow text-3xl bg-gradient-to-r from-error to-warning inline-block text-transparent bg-clip-text" href="/">Digglu</a>
+            <a class="btn btn-sm lg:btn-lg text-xl lg:text-3xl drop-shadow bg-gradient-to-r from-error to-warning text-transparent bg-clip-text" href="/">Digglu</a>
         </div>
         <div class="navbar-center">
         </div>
@@ -38,7 +38,7 @@ export const Header = async (store: Store) => {
             </div>` 
             : /*html*/`
             
-            <button onClick="loginModal.showModal()" class="btn btn-error mx-1">Login</button>
+            <button onClick="loginModal.showModal()" class="btn btn-sm lg:btn-lg btn-error mx-1">Login</button>
             `
             }
 
