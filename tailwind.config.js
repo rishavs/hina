@@ -40,7 +40,7 @@ module.exports = {
                     ...require("daisyui/src/theming/themes")["dark"],
                     "primary": "#0369a1",
                     "error": "#f472b6",
-                    "neutral": "#334155",
+                    "neutral": "#1e293b",
 
                     "neutral-content": "#f1f5f9",
                 },
@@ -50,7 +50,7 @@ module.exports = {
                     ...require("daisyui/src/theming/themes")["pastel"],
                     "error": "#f472b6",
                     "warning": "#ead173",
-                    "neutral": "#3b8ac4",
+                    "neutral": "#1e293b",
                     "neutral-content": "#eeeeff",
 
                     "--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes
