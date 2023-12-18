@@ -29,7 +29,9 @@ export const Filters = () => {
             </ul>
         </div>
 
-        <span class="hidden lg:block">Hey Dingbat, what will you dig up today?</span>
+        <span class="btn btn-disabled text-white hidden lg:flex grow">
+            Hey Dingbat, what will you dig up today?
+        </span>
 
         <div class="dropdown dropdown-bottom dropdown-end">
             <label tabindex="0" class="btn btn-ghost ">

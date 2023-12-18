@@ -15,12 +15,24 @@ export const buildHomePage = async (store: Store) => {
         postsList += await PostCard(item);
     }
     store.page.html = /*html*/ `
-        <article class="">
+        <div class="">
             ${Filters()}
        
             <div class="flex flex-col lg:gap-4 gap-1">
                 ${postsList}
             </div>
-        </article>
+
+            <div class="flex justify-between h-20 items-center">
+                <button class="btn">Prev</button>
+                <div class="join">
+                    <button class="join-item btn">1</button>
+                    <button class="join-item btn btn-active">2</button>
+                    <button class="join-item btn">3</button>
+                    <button class="join-item btn">4</button>
+                </div>
+                <button class="btn">Next</button>
+            </div>
+
+        </div>
     `;
 };

@@ -2,7 +2,7 @@ import { Store } from "../defs";
 
 export const Header = async (store: Store) => {
     return /*html*/ `
-    <header class="navbar sticky top-0 bg-neutral lg:rounded-btn border border-base-300 shadow-xl h-8 lg:h-20 z-10">
+    <header class="navbar sticky top-0 bg-neutral rounded-b-btn lg:rounded-btn border border-base-300 shadow-xl h-8 lg:h-20 z-10">
         <div class="navbar-start">
             <label for="left-drawer-trigger" class="btn btn-ghost drawer-button lg:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">

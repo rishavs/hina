@@ -49,14 +49,14 @@ export const PostCard = (post: Post) => {
         <div class="grow flex flex-col">
             <div class="flex">
                 <div class="avatar">
-                    <div class=" w-20 lg:w-36 border border-base-300">
+                    <div class=" w-16 lg:w-32 border border-base-300">
                         <img src="https://picsum.photos/seed/${post.slug}/200/300" alt="" loading="lazy" decoding="async"/>
                     </div>
                 </div>
 
                 <div class="flex flex-col justify-between w-full pt-2 lg:pt-4">
                 
-                    <p class=" line-clamp-2 pl-2 pr-1 lg:px-4 pb-1 lg:pb-0 text-sm lg:text-lg">
+                    <p class=" line-clamp-2 pl-2 lg:pl-4 pr-1 text-sm lg:text-lg">
                         <span class="inline-flex items-baseline">
                             <img src="https://picsum.photos/seed/${post.slug}/100/100" class="h-5 lg:h-7 w-5 lg:w-7 self-center rounded-md border border-base-100" alt="" loading="lazy" decoding="async"/>
                             <span>&nbsp</span>
@@ -64,7 +64,7 @@ export const PostCard = (post: Post) => {
                         <a href="/p/${post.slug}" class="leading-relaxed lg:leading-loose text-neutral-content">R${post.title}</a>
                     </p>
 
-                    <div class="flex items-center justify-between gap-0 lg:gap-4 pl-2 lg:pl-4">
+                    <div class="flex items-center justify-between gap-0 lg:gap-4 lg:pl-4 pt-1 lg:pt-2">
                         <div class="flex justify-start items-center gap-2">
                             <button class=" hidden btn btn-sm lg:btn-md lg:inline-flex items-center rounded-b-none">
                                 <div class="avatar">
@@ -74,12 +74,12 @@ export const PostCard = (post: Post) => {
                                 </div>
                                 Lord Dingus
                             </button>
-                            <span class="flex gap-1 lg:gap-2 text-xs lg:text-base">
+                            <button class="btn btn-disabled btn-xs lg:btn-md gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 lg:w-6 lg:h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
-                                12 hr 
-                            </span>
+                                <span>12 hr</span> 
+                            </button>
 
                         </div>
                         <div class="flex items-end">
