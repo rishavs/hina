@@ -2,10 +2,10 @@ import { Post } from "../defs"
 
 export const Comment = async (post: Post) => {
     return /*html*/ `
-    <article name="article" class="bg-primary border border-base-300 rounded-btn w-full shadow-xl">
-        <div class="rounded-btn border-l-2 border-warning">
-            <figure class="border-b border-base-300 rounded-t-btn">
-                <img src="https://picsum.photos/seed/picsum/500/300" class="rounded-t-btn w-full object-cover" alt="Shoes"/>
+    <article name="article" class="bg-base-200 border border-base-300 rounded-box w-full shadow-xl">
+        <div class="rounded-box border-l-2 border-warning">
+            <figure class="border-b border-base-300 rounded-t-box">
+                <img src="https://picsum.photos/seed/picsum/500/300" class="rounded-t-box w-full object-cover" alt="Shoes"/>
             </figure>
             <div class="flex flex-col px-4 lg:px-8">
                 
@@ -21,42 +21,36 @@ export const Comment = async (post: Post) => {
                 </div>
 
                 <div class="flex justify-between py-2 lg:py-4 border-b border-base-300">      
-                    <div class="join">      
-                        <button class="btn btn-warning join-item">                                    
+                    <div class="flex gap-1">
+                        <button class="btn btn-sm lg:btn-md btn-outline btn-warning">                                    
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="5" stroke="currentColor" class="w-4 h-4 lg:w-6 lg:h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" />
                             </svg>
                             <span>9909</span>
                         <button>
-                        <button class="btn join-item"> 
+                        <button class="btn btn-sm lg:btn-md join-item border border-base-100"> 
                             <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden lg:block w-4 h-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
                                 </svg>
                                 Tech
                             </div>
                         </button>
                     </div>
-                    <button class="btn relative flex w-36 items-center overflow-hidden shadow-lg">
-                        <img class="absolute -left-2 w-12 rounded-r-full shadow-lg" src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=80" />
-                        <div class="w-36 pl-8">
-                            <div class="truncate text-xs font-bold">Andrew Alfred</div>
-                            <div class="truncate text-xs font-light">12 hrs ago</div>
+                    <button class="btn btn-sm relative flex items-center overflow-hidden shadow-lg lg:btn-md border border-base-100">
+                        <img class="absolute -left-2 w-10 rounded-r-full shadow-lg lg:w-16" src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=80" />
+                        <div class="w-28 pl-8 lg:w-48 lg:pl-12">
+                            <div class="truncate">
+                                Andrew Alfred Dingus Berrius
+                            </div>
                         </div>
                     </button>
                 </div>
 
                 <div class="py-2 lg:py-4 border-b border-base-300">                         
-                
-                    <div class="btn btn-disabled px-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
 
-                        <span>12 hrs ago</span>
-                    </div>
                     <p class="prose lg:prose-lg max-w-none">
-
+                        <span class="badge">12 hrs ago</span>
                         ${post.content}
                     </p>
                 </div>

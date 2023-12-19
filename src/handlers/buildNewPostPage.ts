@@ -7,7 +7,7 @@ export const buildNewPostPage = async (store: Store) => {
 
         <article class="min-h-screen">
             
-            <div class="card w-full bg-primary text-primary-content">
+            <div class="card w-full bg-base-200 text-primary-content">
                 <div class="card-body">
                     <h2 class="card-title">Add a new post</h2>
                     

@@ -12,7 +12,7 @@ export const Filters = () => {
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>                     
             </label>
-            <ul tabindex="0" class="dropdown-content z-10 menu p-4 shadow-xl rounded-box border border-base-300 bg-primary w-52 gap-1 lg:gap-2">
+            <ul tabindex="0" class="dropdown-content z-10 menu p-4 shadow-xl rounded-box border border-base-300 bg-base-200 w-52 gap-1 lg:gap-2">
                 <li><a class="active">All</a></li>
                 <li><a>Meta</a></li>
                 <li><a>Science & Tech</a></li>

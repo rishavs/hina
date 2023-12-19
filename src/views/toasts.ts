@@ -6,7 +6,7 @@ export const Toasts = async (store: Store) => {
 
         <div id="success_toast" class="alert alert-success auto-hide hidden">
             <div class="flex flex-col">
-                <progress class="progress w-full h-1 mb-1 animate-progress bg-primary-content" value="0"></progress>
+                <progress class="progress w-full h-1 mb-1 animate-progress bg-base-200-content" value="0"></progress>
                 <span id="success_toast_text"> ℹ️ Message was sent.</span>
             </div>
             <button class="btn btn-sm btn-ghost" onclick="successToast.classList.toggle('hidden')">✕</button>

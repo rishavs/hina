@@ -23,7 +23,7 @@ export const SideCard = async (store: Store) => {
 
 
     return /*html*/ `
-    <ul class="menu bg-base-200 border border-base-300 shadow-xl rounded-lg mr-12 divide-y divide-base-300">
+    <ul class="menu bg-base-200 border border-base-300 shadow-xl rounded-box mr-12 divide-y divide-base-300">
         <li class="menu-title">Top 10 Posts</li>
         ${postsList}
     </ul>

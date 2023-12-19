@@ -2,7 +2,7 @@ import { Store } from "../defs";
 
 export const Header = async (store: Store) => {
     return /*html*/ `
-    <header class="navbar sticky top-0 bg-primary opacity-90 rounded-b-btn lg:rounded-btn border border-base-300 shadow-xl h-8 lg:h-20 z-10">
+    <header class="navbar sticky top-0 bg-base-200 opacity-90 rounded-b-box lg:rounded-box border border-base-300 shadow-xl h-8 lg:h-20 z-10">
         <div class="navbar-start">
             <label for="left-drawer-trigger" class="btn btn-ghost drawer-button lg:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
@@ -32,7 +32,7 @@ export const Header = async (store: Store) => {
                         <img src="/pub/bm.png" />
                     </div>
                 </label>
-                <ul tabindex="0" class="z-20 mt-3 p-2 shadow menu menu-lg lg:menu-md dropdown-content bg-primary rounded-box w-52">
+                <ul tabindex="0" class="z-20 mt-3 p-2 shadow menu menu-lg lg:menu-md dropdown-content bg-base-200 rounded-box w-52">
                     <li>
                         <a class="justify-between">
                             Profile

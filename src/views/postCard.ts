@@ -9,11 +9,11 @@ import { Post } from "../defs";
 export const PostCard = (post: Post) => {
     return /*html*/ `
     <!-- Post Card -->
-    <article class="flex rounded-btn bg-base-200 gap-1 lg:gap-2">
+    <article class="flex lg:rounded-box border border-base-300 bg-base-200 gap-1 lg:gap-2">
 
         <!-- Dig Btn section-->
         <div class="flex-none flex flex-col justify-between w-12 lg:w-20 gap-1 lg:gap-2 ">
-            <button class="grow btn btn-warning  lg:btn-lg rounded-bl-none rounded-tr-none flex flex-col gap-1 p-0 lg:p-2">
+            <button class="grow btn btn-warning lg:btn-lg rounded-none rounded-br-btn lg:rounded-tl-box flex flex-col gap-1 p-0 lg:p-2 border border-base-100" onClick='this.classlist.toggle("btn-outline")'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="5" stroke="currentColor" class="w-4 h-4 lg:w-6 lg:h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" />
                 </svg>
@@ -34,7 +34,7 @@ export const PostCard = (post: Post) => {
 
             </button>
 
-            <button class="btn btn-xs lg:btn-md rounded-br-none rounded-tl-none border border-base-100"> 
+            <button class="btn btn-xs lg:btn-md rounded-none rounded-tr-btn lg:rounded-bl-box border border-base-100 border-l-none"> 
                 <div class="flex items-center">
                 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden lg:block w-4 h-4">
@@ -49,7 +49,7 @@ export const PostCard = (post: Post) => {
         <div class="grow flex flex-col">
             <div class="flex">
                 <div class="avatar">
-                    <div class=" w-16 lg:w-32 border border-base-300">
+                    <div class=" w-16 lg:w-32">
                         <img src="https://picsum.photos/seed/${post.slug}/200/300" alt="" loading="lazy" decoding="async"/>
                     </div>
                 </div>
@@ -88,7 +88,7 @@ export const PostCard = (post: Post) => {
 
                         <div class="flex items-end">
                                         
-                            <a href="/p/${post.slug}" class="btn btn-xs lg:btn-md ml-1 lg:ml-2 btn-neutral rounded-none rounded-br-md rounded-tl-btn w-16 lg:w-36 p-0 ">
+                            <a href="/p/${post.slug}" class="btn btn-xs lg:btn-md ml-1 lg:ml-2 btn-neutral rounded-none lg:rounded-br-box rounded-tl-btn w-16 lg:w-36 p-0 ">
                                 <span>9.9k</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />

@@ -24,9 +24,10 @@ export const buildPostDetailsPage = async (store: Store) => {
         <section>
             ${Filters()}
             ${await Comment(post)}
+            
         </section>
         <section name="comments">
-            ${await CommentsTree()}
+            ${await Comment(post)}
         </section>
     </div>
 
