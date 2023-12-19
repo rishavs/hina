@@ -9,10 +9,10 @@ import { Post } from "../defs";
 export const PostCard = (post: Post) => {
     return /*html*/ `
     <!-- Post Card -->
-    <article class="flex rounded-btn bg-neutral border border-black">
+    <article class="flex rounded-btn bg-base-200 gap-1 lg:gap-2">
 
         <!-- Dig Btn section-->
-        <div class="flex-none flex flex-col justify-between w-12 lg:w-20 gap-1 lg:gap-2 pr-1 lg:pr-2">
+        <div class="flex-none flex flex-col justify-between w-12 lg:w-20 gap-1 lg:gap-2 ">
             <button class="grow btn btn-warning  lg:btn-lg rounded-bl-none rounded-tr-none flex flex-col gap-1 p-0 lg:p-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="5" stroke="currentColor" class="w-4 h-4 lg:w-6 lg:h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" />
@@ -34,7 +34,7 @@ export const PostCard = (post: Post) => {
 
             </button>
 
-            <button class="btn btn-xs lg:btn-md rounded-br-none rounded-tl-none "> 
+            <button class="btn btn-xs lg:btn-md rounded-br-none rounded-tl-none border border-base-100"> 
                 <div class="flex items-center">
                 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden lg:block w-4 h-4">
@@ -56,7 +56,7 @@ export const PostCard = (post: Post) => {
 
                 <div class="flex flex-col justify-between w-full">
                     <div>                    
-                        <button class="float-right btn btn-xs lg:btn-sm rounded-t-none mr-2 lg:mr-4"> 
+                        <button class="float-right btn btn-xs lg:btn-sm rounded-t-none mr-2 lg:mr-4 border border-base-100"> 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
                             </svg>
@@ -71,13 +71,13 @@ export const PostCard = (post: Post) => {
                             12 hr
                             </span>
 
-                            <a href="/p/${post.slug}" class="prose prose-sm lg:prose-lg">R${post.title}</a>
+                            <a href="/p/${post.slug}" class="text-sm lg:text-lg">R${post.title}</a>
                         </p>
                     </div>
 
                     <div class="flex items-end justify-between gap-0 lg:gap-4 pl-2 lg:pl-4 pt-1 lg:pt-2">
 
-                        <button class="btn btn-xs relative flex items-center overflow-hidden shadow-lg lg:btn-md rounded-b-none">
+                        <button class="btn btn-xs relative flex items-center overflow-hidden shadow-lg lg:btn-md rounded-b-none border border-base-100">
                             <img class="absolute -left-2 w-10 rounded-r-full shadow-lg lg:w-16" src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=80" />
                             <div class="w-28 pl-8 lg:w-48 lg:pl-12">
                                 <div class="truncate">
@@ -88,7 +88,7 @@ export const PostCard = (post: Post) => {
 
                         <div class="flex items-end">
                                         
-                            <a href="/p/${post.slug}" class="btn btn-xs lg:btn-md ml-1 lg:ml-2 btn-primary rounded-none rounded-br-md rounded-tl-btn w-16 lg:w-36 p-0 border border-base-100">
+                            <a href="/p/${post.slug}" class="btn btn-xs lg:btn-md ml-1 lg:ml-2 btn-neutral rounded-none rounded-br-md rounded-tl-btn w-16 lg:w-36 p-0 ">
                                 <span>9.9k</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />

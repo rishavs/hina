@@ -2,7 +2,7 @@ import { Post } from "../defs"
 
 export const Comment = async (post: Post) => {
     return /*html*/ `
-    <article name="article" class="bg-neutral border border-base-300 rounded-btn w-full shadow-xl">
+    <article name="article" class="bg-primary border border-base-300 rounded-btn w-full shadow-xl">
         <div class="rounded-btn border-l-2 border-warning">
             <figure class="border-b border-base-300 rounded-t-btn">
                 <img src="https://picsum.photos/seed/picsum/500/300" class="rounded-t-btn w-full object-cover" alt="Shoes"/>

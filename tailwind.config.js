@@ -38,11 +38,15 @@ module.exports = {
             {
                 darksun: {
                     ...require("daisyui/src/theming/themes")["dark"],
-                    "primary": "#0369a1",
-                    "error": "#f472b6",
-                    "neutral": "#1e293b",
+                    "primary": "#0f172a",
+                    "primary-content": "#ffffff",
 
+                    "error": "#f472b6",
+                    "neutral": "#0369a1",
                     "neutral-content": "#f1f5f9",
+                    "base-100": "#1e293b",
+                    "base-200": "#0f172a",
+                    "base-300": "#020617",
                 },
             },
             {

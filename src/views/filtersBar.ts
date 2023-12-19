@@ -13,7 +13,7 @@ export const FiltersBar = async () => /*html*/ `
         <div class="navbar-end">
             <div class="dropdown dropdown-end mx-2">
                 <label tabindex="0" class="btn btn-outline"> Most Recent </label>
-                <ul tabindex="0" class="z-10 mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+                <ul tabindex="0" class="z-10 mt-3 p-2 shadow menu menu-compact dropdown-content bg-primary rounded-box w-52">
                     <li><a>Last 24 hours</a></li>
                     <li><a>Last week</a></li>
                     <li><a>Last Year</a></li>
