@@ -54,46 +54,39 @@ export const PostCard = (post: Post) => {
                     </div>
                 </div>
 
-                <div class="flex flex-col justify-between w-full pt-2 lg:pt-4">
-                
-                    <p class=" line-clamp-2 pl-2 lg:pl-4 pr-1 text-sm lg:text-lg">
-                        <span class="inline-flex items-baseline">
-                            <img src="https://picsum.photos/seed/${post.slug}/100/100" class="h-5 lg:h-7 w-5 lg:w-7 self-center rounded-md border border-base-100" alt="" loading="lazy" decoding="async"/>
-                            <span>&nbsp</span>
-                        </span>
-                        <a href="/p/${post.slug}" class="leading-relaxed lg:leading-loose text-neutral-content">R${post.title}</a>
-                    </p>
+                <div class="flex flex-col justify-between w-full">
+                    <div>                    
+                        <button class="float-right btn btn-xs lg:btn-sm rounded-t-none mr-2 lg:mr-4"> 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                            </svg>
+                        </button>
+                        <p class=" line-clamp-2 pl-2 lg:pl-4 pt-1 lg:pt-2">
+                        
+                            <span class="inline-flex items-baseline">
+                                <img src="https://picsum.photos/seed/${post.slug}/100/100" class="h-5 lg:h-7 w-5 lg:w-7 self-center rounded-md border border-base-100" alt="" loading="lazy" decoding="async"/>
+                                <span>&nbsp</span>
+                            </span>
+                            <span class="badge badge-xs lg:badge-md mr-1">
+                            12 hr
+                            </span>
 
-                    <div class="flex items-center justify-between gap-0 lg:gap-4 lg:pl-4 pt-1 lg:pt-2">
-                        <div class="flex justify-start items-center gap-2">
-                            <button class=" hidden btn btn-sm lg:btn-md lg:inline-flex items-center rounded-b-none">
-                                <div class="avatar">
-                                    <div class="w-5 lg:w-7 rounded-full ">
-                                    <img src="https://picsum.photos/seed/11/100/100" alt="" loading="lazy" decoding="async" />
-                                    </div>
+                            <a href="/p/${post.slug}" class="prose prose-sm lg:prose-lg">R${post.title}</a>
+                        </p>
+                    </div>
+
+                    <div class="flex items-end justify-between gap-0 lg:gap-4 pl-2 lg:pl-4 pt-1 lg:pt-2">
+
+                        <button class="btn btn-xs relative flex items-center overflow-hidden shadow-lg lg:btn-md rounded-b-none">
+                            <img class="absolute -left-2 w-10 rounded-r-full shadow-lg lg:w-16" src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=80" />
+                            <div class="w-28 pl-8 lg:w-48 lg:pl-12">
+                                <div class="truncate">
+                                    Andrew Alfred Dingus Berrius
                                 </div>
-                                Lord Dingus
-                            </button>
-                            <button class="btn btn-disabled btn-xs lg:btn-md gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 lg:w-6 lg:h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>12 hr</span> 
-                            </button>
+                            </div>
+                        </button>
 
-                        </div>
                         <div class="flex items-end">
-                            
-                            <button class="btn btn-xs lg:btn-md rounded-r-none rounded-b-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-                                </svg>
-                            </button>
-                            <button class="btn btn-xs lg:btn-md rounded-none rounded-tr-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
-                                </svg>
-                            </button>
                                         
                             <a href="/p/${post.slug}" class="btn btn-xs lg:btn-md ml-1 lg:ml-2 btn-primary rounded-none rounded-br-md rounded-tl-btn w-16 lg:w-36 p-0 border border-base-100">
                                 <span>9.9k</span>

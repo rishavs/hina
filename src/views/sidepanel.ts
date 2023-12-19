@@ -9,7 +9,7 @@ export const SideCard = async (store: Store) => {
         postsList += /*html*/ `<li>
             <a href="/p/${post.slug}">                                
                 <div class="flex flex-col p-2 bg-warning rounded">
-                    <span class="countdown">
+                    <span class="countdown text-warning-content">
                         <span style="--value:${post.digs_count};"></span>
                     </span>
                 </div>
