@@ -13,6 +13,8 @@ import { loginGoogleUser }      from './handlers/loginGoogleUser';
 import { buildNewPostPage }     from './handlers/buildNewPostPage';
 import { submitNewPostForm }    from './handlers/submitNewPostForm';
 
+import { checkIfUserBlocked }   from './database';
+
 let routes : Record<string, Array<Function>> = {
     // API Routes
     "GET/api/hello"             : [() => console.log("YOYO"), sayHello],
@@ -61,6 +63,9 @@ export default {
     
         let url = new URL(request.url)
 
+        // print the user agent
+        console.log("User Agent: ", request.headers.get('User-Agent'))
+
         // ------------------------------------------
         // Serve Static assets -  don't handle 404s
         // ------------------------------------------
@@ -96,7 +101,6 @@ export default {
 		let handlers: Array<Function> | null
 		let route: string
 
-        
 		// ------------------------------------------
         // Set SID
         // ------------------------------------------

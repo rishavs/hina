@@ -4,21 +4,22 @@
 	"private": true,
 	"scripts": {
 		"dev": "run-p dev:*",
-		"dev:wrangler": "wrangler pages dev dist --live-reload --port 3000",
-		"dev:esbuild": "esbuild --bundle src/server.ts --format=esm --watch --outfile=dist/_worker.js",
-		"style": "tailwindcss -i ./builder.css -o ./dist/pub/styles.css --watch --minify",
-		"build": "esbuild --bundle src/server.ts --format=esm --outfile=dist/_worker.js",
-		"deploy": "wrangler pages publish dist"
+		"dev:wrangler": "wrangler pages dev client --live-reload --port 3000",
+		"dev:esbuild": "esbuild --bundle src/server.ts --format=esm --watch --outfile=client/_worker.js",
+		"style": "tailwindcss -i ./builder.css -o ./client/pub/styles.css --watch --minify",
+		"build": "esbuild --bundle src/server.ts --format=esm --outfile=client/_worker.js",
+		"deploy": "wrangler pages publish client"
 	},
 	"dependencies": {
 		"@planetscale/database": "latest",
 		"jose": "latest",
-		"nanoid": "latest"
+		"nanoid": "latest",
+		"ua-parser-js": "^1.0.37"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "latest",
-		"@tailwindcss/typography": "latest",
 		"@tailwindcss/forms": "latest",
+		"@tailwindcss/typography": "latest",
 		"daisyui": "latest",
 		"esbuild": "latest",
 		"npm-run-all": "latest",

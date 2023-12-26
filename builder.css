@@ -5,3 +5,7 @@
 select {
     font: inherit;
 }
+
+iframe {
+    color-scheme: normal;
+}

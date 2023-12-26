@@ -1,8 +1,15 @@
 CREATE TABLE IF NOT EXISTS `sessions` ( 
     `session_id`    VARCHAR(24) NOT NULL UNIQUE,
     `user_id`       VARCHAR(24) NOT NULL,
+    `user_agent`    VARCHAR(256) NOT NULL,
     `created_at`    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS `blocked_users` (
+    `user_oauth_id` varchar(32) PRIMARY KEY, 
+    `banned_at`     timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+    `banned_note`   varchar(128)    -- note to self. not to be shown to end users
+)
 
 CREATE TABLE IF NOT EXISTS `users` ( 
     `id`            varchar(16) PRIMARY KEY, 
@@ -34,12 +41,13 @@ CREATE TABLE IF NOT EXISTS `users` (
     CONSTRAINT `both_ids_cannot_be_null` CHECK (((`google_id` is not null) or (`apple_id` is not null))) 
 )
 
-CREATE TABLE IF NOT EXISTS `banned_domains` (
+CREATE TABLE IF NOT EXISTS `blocked_domains` (
     `domain`        varchar(32) PRIMARY KEY, 
     `banned_at`     timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     `banned_till`   timestamp NOT NULL,
     `banned_note`   varchar(128)    -- note to self. not to be shown to end users
 )
+
 
 CREATE TABLE IF NOT EXISTS `post_categories` ( 
     `id`            int PRIMARY KEY, 

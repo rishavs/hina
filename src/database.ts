@@ -51,6 +51,12 @@ export const fetchAllPosts = async (store: Store, cat?:Number) => {
     return result.rows
 }
 
+export const checkIfUserBlocked = async (store: Store, id: String) => {
+    let conn = connectToPlanetScale(store)
+
+    let result = await conn.execute('select user_oauth_id from blocked_users where user_oauth_id = :id', {id : id})
+    return result
+}
 export const fetchSpecificPostById = async (store: Store) => {
     let conn = connectToPlanetScale(store)
 
@@ -75,6 +81,18 @@ export const addGoogleUserToDB = async (store: Store, user: User) => {
         values 
         (?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?, ?)`,
         [user.id, user.slug, user.name, user.thumb, user.honorific, user.flair, user.role, user.level, user.stars, user.creds, user.gil, user.google_id]
+        )
+    return result
+}
+export const addNewSession = async (store: Store, sessionId: String, userId: String, userAgent: String) => {
+    let conn = connectToPlanetScale(store)
+
+    let result = await conn.execute(`
+        insert into sessions 
+        (session_id, user_id, user_agent) 
+        values 
+        (?, ?, ?)`,
+        [sessionId, userId, userAgent]
         )
     return result
 }

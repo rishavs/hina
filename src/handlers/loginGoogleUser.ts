@@ -1,7 +1,7 @@
 import {jwtVerify, createRemoteJWKSet, EncryptJWT} from 'jose'
-import { Store, Post, User } from '../defs'
+import { Store, User } from '../defs'
 import { nanoid } from 'nanoid'
-import { getGoogleUserFromDB, addGoogleUserToDB } from '../database'
+import { getGoogleUserFromDB, addGoogleUserToDB, checkIfUserBlocked, addNewSession } from '../database'
 
 export const loginGoogleUser = async (store: Store) => {
 
@@ -73,19 +73,29 @@ export const loginGoogleUser = async (store: Store) => {
     // Add nonce table in KV with datetime. if less than 1 hr old, check if nonce given for this userid is correct. if not, reject. 
     // if yes, delete nonce from table and continue. if more than 1 hr old, delete nonce from table and reject.
     
+    // ------------------------------------------
+    // Check if user is blocked
+    // ------------------------------------------
+
+    let resUserBlocked = await checkIfUserBlocked(store, "rishav.sharan@gmail.com")
+    console.log("User Blocked: ", JSON.stringify(resUserBlocked))
+
+    if (resUserBlocked.size != 0) {
+        throw new Error("503", { cause: "User is blocked" })
+    }
 
     // ------------------------------------------
     // Get user details from DB. Else add to db
     // ------------------------------------------
     let user: User = {} as User
     let isNewUser = false
-    let resUserCheck = await getGoogleUserFromDB(store, payload.email as string)
+    let resUserExists = await getGoogleUserFromDB(store, payload.email as string)
     // console.log(`getUserDetails:`, JSON.stringify(resUserCheck))
 
 
-    if (resUserCheck.size != 0) {
+    if (resUserExists.size != 0) {
         // console.log(`user exists`, JSON.stringify(user))
-        user = resUserCheck.rows[0] as User
+        user = resUserExists.rows[0] as User
     } else {
         // console.log(`user doesn't exist`)
         isNewUser = true
@@ -113,16 +123,22 @@ export const loginGoogleUser = async (store: Store) => {
     // ------------------------------------------
     // Set cookies. TODO - make secure. Add domain info. Add expiry
     // ------------------------------------------
-    const secret = new TextEncoder().encode(store.env.SECRET)
-    const jwe = await new EncryptJWT({uid: user.id})
-        .setProtectedHeader({ alg: "dir", enc: "A256GCM" })
-        .setIssuedAt()
-        .setIssuer("https://digglu.com")
-        .setExpirationTime("30d")
-        .encrypt(secret);
-    
-    store.res.headers.append('Set-Cookie', `D_UID=${jwe}; path=/; HttpOnly; Secure; SameSite=Strict;`)
+    // const secret = new TextEncoder().encode(store.env.SECRET)
+    // const jwe = await new EncryptJWT({uid: user.id})
+    //     .setProtectedHeader({ alg: "dir", enc: "A256GCM" })
+    //     .setIssuedAt()
+    //     .setIssuer("https://digglu.com")
+    //     .setExpirationTime("30d")
+    //     .encrypt(secret);
 
+    // ------------------------------------------
+    // create session id. set session in db. set session cookie
+    // ------------------------------------------
+    let sessionId = nanoid(24)
+    let _ = await addNewSession(store, sessionId, user.id, store.req.raw.headers.get('User-Agent') || "")
+
+    store.res.headers.append('Set-Cookie', `D_UID=${sessionId}; path=/; HttpOnly; Secure; SameSite=Strict;`)
+    
     store.res.headers.append('Set-Cookie', `D_USLUG=${user.slug}; path=/; SameSite=Strict;`)
     store.res.headers.append('Set-Cookie', `D_UNAME=${user.name}; path=/; SameSite=Strict;`)
     store.res.headers.append('Set-Cookie', `D_UHONORIFIC=${user.honorific}; path=/; SameSite=Strict;`)
@@ -134,8 +150,10 @@ export const loginGoogleUser = async (store: Store) => {
     store.res.headers.append('Set-Cookie', `D_UCREDS=${user.creds}; path=/; SameSite=Strict;`)
     store.res.headers.append('Set-Cookie', `D_UGIL=${user.gil}; path=/; SameSite=Strict;`)
 
+    store.res.headers.append('Set-Cookie', `D_NEW_SESSION=true; path=/; SameSite=Strict;`)
+
     // Trigger page refresh. this is required as using location header to redirect doesn't work well with reading cookies
-    store.res.headers.append('Set-Cookie', `D_PAGE_RELOAD=true; path=/; SameSite=Strict;`)
+    // store.res.headers.append('Set-Cookie', `D_PAGE_RELOAD=true; path=/; SameSite=Strict;`)
 
     // Trigger UX
     if (isNewUser) {
@@ -154,8 +172,4 @@ export const loginGoogleUser = async (store: Store) => {
     // set window location
     store.res.status = 302
     store.res.headers.append('Location', redirectTo)
-
-    // store.res.headers.append('Location', `/authenticate?redirectTo=${redirectTo}`)
-
-
 }

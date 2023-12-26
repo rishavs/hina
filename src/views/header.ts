@@ -32,7 +32,7 @@ export const Header = async (store: Store) => {
                         <img src="/pub/bm.png" />
                     </div>
                 </label>
-                <ul tabindex="0" class="z-20 mt-3 p-2 shadow menu menu-lg lg:menu-md dropdown-content bg-base-200 rounded-box w-52">
+                <ul tabindex="0" class="z-20 mt-3 p-2 shadow menu lg:menu-lg dropdown-content bg-base-200 rounded-box w-52">
                     <li>
                         <a class="justify-between">
                             Profile
@@ -40,16 +40,52 @@ export const Header = async (store: Store) => {
                         </a>
                     </li>
                     <li><a>Settings</a></li>
-                    <li><a href="/logout">Logout</a></li>
+                    <li><a onClick="signOut()">Logout</a></li>
                 </ul>
             </div>` 
             : /*html*/`
-            
-            <button onClick="loginModal.showModal()" class="btn lg:btn-lg btn-neutral mx-1">Login</button>
+            <!-- <button onClick="loginModal.showModal()" class="btn btn-neutral mx-1">Login</button> -->
+            <div class="flex items-center lg:pr-4">
+                <span class="hidden lg:block text-warning pr-2">Sign in with</span>
+                <script src="https://accounts.google.com/gsi/client" async defer></script>
+                <div id="g_id_onload"
+                    data-client_id=${store.env.GOOGLE_KEY_ID}
+                    data-context="signin"
+                    data-ux_mode="redirect"
+                    data-login_uri="${store.req.url.origin}/api/login/google?redirectTo=${encodeURIComponent(store.req.url.pathname)}"
+                    data-nonce="noncy_drew"
+                    data-skip_prompt_cookie="D_UID"
+                    data-auto_prompt="true"
+                    data-auto_select="true"
+                    data-itp_support="true"
+                    data-your_own_param_1_to_login="oogaboogo"
+                    data-your_own_param_2_to_login="pingpong"
+                >
+                </div>
+                
+                <div class="g_id_signin"
+                    data-type="icon"
+                    data-shape="circle"
+                    data-theme="outline"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left"
+                    data-redirect_to="${encodeURIComponent(store.req.url.pathname)}"    
+
+                >
+                </div>
+            </div>
             `
             }
 
         </div>
     </header>
+    <script>
+        let signOut = () => {
+            window.localStorage.clear();
+            document.cookie = "D_UID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = "/logout";
+        }
+    </script>
     `
 }

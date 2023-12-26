@@ -3,7 +3,7 @@ import { Store } from "../defs";
 export const LoginModal = async (store: Store) => {
   return /*html*/ `
     <dialog id="loginModal" class="modal">
-        <div class="modal-box bg-neutral">
+        <div class="modal-box bg-neutral-content">
             <div class="modal-action -mt-2 p-0">
                 <form method="dialog">
                     <!-- if there is a button in form, it will close the modal -->
@@ -30,8 +30,8 @@ export const LoginModal = async (store: Store) => {
                     </div>
                     
                     <div class="g_id_signin"
-                        data-type="standard"
-                        data-shape="rectangular"
+                        data-type="icon"
+                        data-shape="square"
                         data-theme="outline"
                         data-text="signin_with"
                         data-size="large"

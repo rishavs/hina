@@ -106,13 +106,43 @@ export const generateHTML = async (store: Store) => {
         //--------------------------------------------------
         //  Trigger Client side actions based on cookie values
         //--------------------------------------------------
-        if (store.cookies['D_PAGE_RELOAD']) {
+        if (store.cookies['D_NEW_SESSION']) {
             // delete the cookie
-            document.cookie = "D_PAGE_RELOAD=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            location.reload(true)
-        } else if (store.cookies["D_TOAST_SUCCESS"]) {
-            document.cookie = "D_TOAST_SUCCESS=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "D_NEW_SESSION=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            
+        
+            // Set all user details on localstorage
+            localStorage.setItem('D_USER_SLUG', store.cookies['D_USLUG'])
+            localStorage.setItem('D_USER_NAME', store.cookies['D_UNAME'])
+            localStorage.setItem('D_USER_HONORIFIC', store.cookies['D_UHONORIFIC'])
+            localStorage.setItem('D_USER_THUMB', store.cookies['D_UTHUMB'])
+            localStorage.setItem('D_USER_FLAIR', store.cookies['D_UFLAIR'])
+            localStorage.setItem('D_USER_ROLE', store.cookies['D_UROLE'])
+            localStorage.setItem('D_USER_LEVEL', store.cookies['D_ULEVEL'])
+            localStorage.setItem('D_USER_STARS', store.cookies['D_USTARS'])
+            localStorage.setItem('D_USER_CREDS', store.cookies['D_UCREDS'])
+            localStorage.setItem('D_USER_GIL', store.cookies['D_UGIL'])
+
+            // and eat the cookies!!
+            document.cookie = "D_USLUG=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "D_UNAME=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "D_UHONORIFIC=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "D_UTHUMB=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "D_UFLAIR=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "D_UROLE=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "D_ULEVEL=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "D_USTARS=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "D_UCREDS=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "D_UGIL=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+            // TODO - Stupid bug fix because I cant read the cookies from 
+            // the clientside without making a top level request
+            // reload page
+            window.location.reload(true);
+
             triggerToast("success", store.cookies["D_TOAST_SUCCESS"]);
+            document.cookie = "D_TOAST_SUCCESS=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            
         } else if (store.cookies["D_MODAL_FRE"]) {
             document.cookie = "D_MODAL_FRE=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             freModal.showModal();
