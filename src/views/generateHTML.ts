@@ -139,13 +139,13 @@ export const generateHTML = async (store: Store) => {
             // the clientside without making a top level request
             // reload page
             window.location.reload(true);
-
-            triggerToast("success", store.cookies["D_TOAST_SUCCESS"]);
-            document.cookie = "D_TOAST_SUCCESS=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            
+           
         } else if (store.cookies["D_MODAL_FRE"]) {
             document.cookie = "D_MODAL_FRE=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             freModal.showModal();
+        } else if (store.cookies["D_TOAST_SUCCESS"]) {
+            triggerToast("success", store.cookies["D_TOAST_SUCCESS"]);
+            document.cookie = "D_TOAST_SUCCESS=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
     </script>
 

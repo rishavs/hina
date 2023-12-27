@@ -97,6 +97,7 @@ export default {
 				headers: new Headers(),
 				content: "",
 			},
+            user: null,
 		} 
 		let handlers: Array<Function> | null
 		let route: string
@@ -108,6 +109,10 @@ export default {
         if (!store.req.cookies.D_SID) {
             store.res.headers.append('Set-Cookie', `D_SID=${nanoid()}; Path=/; HttpOnly; Secure; SameSite=Strict`)
         }        
+
+        // ------------------------------------------
+        // TODO - sanitize. delete all cookies which are not allowed
+        // ------------------------------------------
 
         // ------------------------------------------
         // TODO - Content Security Policy

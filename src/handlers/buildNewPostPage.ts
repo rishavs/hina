@@ -5,7 +5,7 @@ export const buildNewPostPage = async (store: Store) => {
     store.page.descr = "META: This is the about page";
     store.page.html = /*html*/ `
 
-        <article class="min-h-screen">
+        <article class="pt-8 lg:pt-20">
             
             <div class="card w-full bg-base-200 text-primary-content">
                 <div class="card-body">
@@ -20,7 +20,7 @@ export const buildNewPostPage = async (store: Store) => {
                                 <label class="label">
                                     <span class="label-text">Select a Post Category</span>
                                 </label>
-                                <select id="post_category_select" class="select select-bordered w-full text-lg" name="category" >
+                                <select id="post_category_select" class="select select-bordered w-full text-lg" name="category" required>
                                     <option class="text-2xl lg:text-lg" value="" selected disabled hidden>Select Post Category</option>
                                     <option class="text-2xl lg:text-lg" value="meta">Meta</option>
                                     <option class="text-2xl lg:text-lg" value="scitech">Science & Technology</option>
@@ -42,8 +42,10 @@ export const buildNewPostPage = async (store: Store) => {
                             <label class="label">
                                 <span class="label-text">Select a Post Type</span>
                             </label>                   
-                            <select id="post_type_select" class="select select-bordered w-full text-lg" name="type" 
-                                onchange="toggleFormControls()">
+                            <select id="post_type_select" class="select select-bordered w-full text-lg " name="type"
+                                onchange="toggleFormControls()"
+                                required
+                            >
                                 <option class="text-2xl lg:text-lg" value="" selected disabled hidden>Select Post Type</option>
                                 <option class="text-2xl lg:text-lg" value="link">Link Post</option>
                                 <option class="text-2xl lg:text-lg" value="text">Text Post</option>
@@ -62,23 +64,29 @@ export const buildNewPostPage = async (store: Store) => {
 
                         <div id="post_title_controls" class="form-control w-full hidden">
                             <label class="label">
-                            <span class="label-text">Post Title</span>
+                                <span class="label-text">Post Title</span>
+                                <span class="label-text-alt">?</span>
                             </label>
                             <input id="post_title_input" type="text" placeholder="Type here" name="title"
-                                class="input input-bordered w-full" onInput="countNewPostTitleChars()" minlength="2" maxlength="5" />
+                                class="input input-bordered w-full invalid:border-red-500" onInput="countNewPostTitleChars()" minlength="16" maxlength="256" />
                             <label class="label">
-                            <span id="post_title_char_count" class="label-text-alt">0/5 chars</span>
+                                <span class="label-text-alt">min 16 chars</span>
+                                <span id="post_title_char_count" class="label-text-alt">0/256 chars</span>
+
                             </label>
                         </div>
 
                         <div id="post_descr_controls" class="form-control hidden">
                             <label class="label">
                                 <span class="label-text">Post Description</span>
+                                <span class="label-text-alt">?</span>
+
                             </label>
-                            <textarea id="post_descr_textarea" minlength="2" maxlength="5" name="description"
+                            <textarea id="post_descr_textarea" minlength="32" maxlength="4096" name="description"
                                 class="textarea textarea-bordered h-24 invalid:border-red-500" placeholder="Bio" onInput="countNewPostDescrChars()"></textarea>
                             <label class="label">
-                                <span id="descr_char_count" class="label-text-alt">0/5 chars</span>
+                                <span class="label-text-alt">min 4096 chars</span>
+                                <span id="descr_char_count" class="label-text-alt">0/4096 chars</span>
                             </label>
                         </div>
                         
@@ -119,13 +127,11 @@ export const buildNewPostPage = async (store: Store) => {
             }
             function countNewPostTitleChars() {
                 let numOfEnteredChars = post_title_input.value.length;
-                let counter = 5 - numOfEnteredChars;
-                post_title_char_count.innerText = counter + "/5 chars";
+                post_title_char_count.innerText = numOfEnteredChars + "/256 chars";
             };
             function countNewPostDescrChars() {
                 let numOfEnteredChars = post_descr_textarea.value.length;
-                let counter = 5 - numOfEnteredChars;
-                descr_char_count.innerText = counter + "/5 chars";
+                descr_char_count.innerText = numOfEnteredChars + "/4096 chars";
             };
 
             function validateNewPostForm() {

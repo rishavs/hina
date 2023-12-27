@@ -177,19 +177,74 @@ var FREModal = async (store) => {
     /*html*/
     `
     <!-- Open the modal using ID.showModal() method -->
-    <dialog id="freModal" class="modal">
-        <div class="modal-box">
+    <dialog id="freModal" class="modal modal-bottom lg:modal-middle">
+        <div class="modal-box flex flex-col gap-4">
             <h3 class="font-bold text-lg text-center">Welcome to Digglu!</h3>
-            <p class="pt-4">Let's set you up with your user details</p>
-            <small class="text-xs opacity-50">Note: You can always do this later in your profile section.</small>
+            <p class="">Let's set you up with your user details.
+            This is how you look to everyone else.</p>
             
+            
+            <button class="btn relative flex items-center overflow-hidden shadow-lg lg:btn-lg border border-base-100 w-full py-4">
+                <img class="absolute -left-2 w-16 rounded-r-full shadow-lg lg:w-20" src="pub/bm.png" />
+                <div class=" pl-12 lg:pl-16">
+                    <div class="truncate">
+                        Andrew Alfred Dingus Berrius Bombus Birrus
+                    </div>
+                </div>
+            </button>
+            
+            <small class="text-xs opacity-50">Note: You can always do this later in the profile section.</small>
+
+            <p class="py-4">This is how you look to everyone else.</p>
+
+            <div class="flex flex-col items-center gap-2">
+                
+                <form method="" class="w-full">
+                                       
+                    <div class="form-control rounded-box border p-2">
+                        <label class="label">
+                            <span class="label-text">Import from device</span>
+                            <span class="label-text-alt">?</span>
+                        </label>                            
+                        <input type="file" class="file-input file-input-sm lg:file-input-md form-control file-input-bordered w-full" />
+                        
+                        <div class="divider">Or</div>    
+                        <label class="label">
+                            <span class="label-text">Paste the image url</span>
+                            <span class="label-text-alt">?</span>
+                        </label>
+                        
+                        <input type="text" placeholder="Type here" class="input input-sm lg:input-md input-bordered" />
+
+                        <label class="label">
+                        <span class="label-text-alt">Bottom Left label</span>
+                        </label>
+                    </div>
+                        
+                    <p class="py-4">This is how you look to everyone else.</p>
+
+                    <div class="form-control rounded-box border p-2">
+                        <label class="label">
+                        <span class="label-text">What is your display name?</span>
+                        <span class="label-text-alt">?</span>
+                        </label>
+                        <input type="text" placeholder="Type here" class="input input-sm lg:input-md input-bordered" />
+
+                        <label class="label">
+                        <span class="label-text-alt">Bottom Left label</span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+
+
             
 
             <div class="modal-action">
-            <form method="dialog">
-                <!-- if there is a button in form, it will close the modal -->
-                <button class="btn">Close</button>
-            </form>
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn">Close</button>
+                </form>
             </div>
         </div>
     </dialog>
@@ -711,12 +766,12 @@ var fetchSpecificPostById = async (store) => {
   let result = await conn.execute("select * from posts where slug=:slug", { slug: store.req.slug });
   return result;
 };
-var getGoogleUserFromDB = async (store, userid) => {
+var getGoogleUserFromDB = async (store, userId) => {
   let conn = connectToPlanetScale(store);
   let result = await conn.execute(
     `
         select id, slug, name, thumb, honorific, flair, role, level, stars, creds, gil from users where google_id=?`,
-    [userid]
+    [userId]
   );
   return result;
 };
@@ -908,13 +963,13 @@ var generateHTML = async (store) => {
             // the clientside without making a top level request
             // reload page
             window.location.reload(true);
-
-            triggerToast("success", store.cookies["D_TOAST_SUCCESS"]);
-            document.cookie = "D_TOAST_SUCCESS=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            
+           
         } else if (store.cookies["D_MODAL_FRE"]) {
             document.cookie = "D_MODAL_FRE=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             freModal.showModal();
+        } else if (store.cookies["D_TOAST_SUCCESS"]) {
+            triggerToast("success", store.cookies["D_TOAST_SUCCESS"]);
+            document.cookie = "D_TOAST_SUCCESS=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
     <\/script>
 
@@ -2713,44 +2768,55 @@ var hour = minute * 60;
 var day = hour * 24;
 var week = day * 7;
 var year = day * 365.25;
-var REGEX = /^(\d+|\d+\.\d+) ?(seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)$/i;
+var REGEX = /^(\+|\-)? ?(\d+|\d+\.\d+) ?(seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)(?: (ago|from now))?$/i;
 var secs_default = (str) => {
   const matched = REGEX.exec(str);
-  if (!matched) {
+  if (!matched || matched[4] && matched[1]) {
     throw new TypeError("Invalid time period format");
   }
-  const value = parseFloat(matched[1]);
-  const unit = matched[2].toLowerCase();
+  const value = parseFloat(matched[2]);
+  const unit = matched[3].toLowerCase();
+  let numericDate;
   switch (unit) {
     case "sec":
     case "secs":
     case "second":
     case "seconds":
     case "s":
-      return Math.round(value);
+      numericDate = Math.round(value);
+      break;
     case "minute":
     case "minutes":
     case "min":
     case "mins":
     case "m":
-      return Math.round(value * minute);
+      numericDate = Math.round(value * minute);
+      break;
     case "hour":
     case "hours":
     case "hr":
     case "hrs":
     case "h":
-      return Math.round(value * hour);
+      numericDate = Math.round(value * hour);
+      break;
     case "day":
     case "days":
     case "d":
-      return Math.round(value * day);
+      numericDate = Math.round(value * day);
+      break;
     case "week":
     case "weeks":
     case "w":
-      return Math.round(value * week);
+      numericDate = Math.round(value * week);
+      break;
     default:
-      return Math.round(value * year);
+      numericDate = Math.round(value * year);
+      break;
   }
+  if (matched[1] === "-" || matched[4] === "ago") {
+    return -numericDate;
+  }
+  return numericDate;
 };
 
 // node_modules/jose/dist/browser/lib/jwt_claims_set.js
@@ -3029,7 +3095,7 @@ function isCloudflareWorkers() {
 var USER_AGENT;
 if (typeof navigator === "undefined" || !navigator.userAgent?.startsWith?.("Mozilla/5.0 ")) {
   const NAME = "jose";
-  const VERSION = "v5.1.3";
+  const VERSION = "v5.2.0";
   USER_AGENT = `${NAME}/${VERSION}`;
 }
 var RemoteJWKSet = class extends LocalJWKSet {
@@ -3183,7 +3249,7 @@ var buildNewPostPage = async (store) => {
   store.page.html = /*html*/
   `
 
-        <article class="min-h-screen">
+        <article class="pt-8 lg:pt-20">
             
             <div class="card w-full bg-base-200 text-primary-content">
                 <div class="card-body">
@@ -3198,7 +3264,7 @@ var buildNewPostPage = async (store) => {
                                 <label class="label">
                                     <span class="label-text">Select a Post Category</span>
                                 </label>
-                                <select id="post_category_select" class="select select-bordered w-full text-lg" name="category" >
+                                <select id="post_category_select" class="select select-bordered w-full text-lg" name="category" required>
                                     <option class="text-2xl lg:text-lg" value="" selected disabled hidden>Select Post Category</option>
                                     <option class="text-2xl lg:text-lg" value="meta">Meta</option>
                                     <option class="text-2xl lg:text-lg" value="scitech">Science & Technology</option>
@@ -3220,8 +3286,10 @@ var buildNewPostPage = async (store) => {
                             <label class="label">
                                 <span class="label-text">Select a Post Type</span>
                             </label>                   
-                            <select id="post_type_select" class="select select-bordered w-full text-lg" name="type" 
-                                onchange="toggleFormControls()">
+                            <select id="post_type_select" class="select select-bordered w-full text-lg " name="type"
+                                onchange="toggleFormControls()"
+                                required
+                            >
                                 <option class="text-2xl lg:text-lg" value="" selected disabled hidden>Select Post Type</option>
                                 <option class="text-2xl lg:text-lg" value="link">Link Post</option>
                                 <option class="text-2xl lg:text-lg" value="text">Text Post</option>
@@ -3240,23 +3308,29 @@ var buildNewPostPage = async (store) => {
 
                         <div id="post_title_controls" class="form-control w-full hidden">
                             <label class="label">
-                            <span class="label-text">Post Title</span>
+                                <span class="label-text">Post Title</span>
+                                <span class="label-text-alt">?</span>
                             </label>
                             <input id="post_title_input" type="text" placeholder="Type here" name="title"
-                                class="input input-bordered w-full" onInput="countNewPostTitleChars()" minlength="2" maxlength="5" />
+                                class="input input-bordered w-full invalid:border-red-500" onInput="countNewPostTitleChars()" minlength="16" maxlength="256" />
                             <label class="label">
-                            <span id="post_title_char_count" class="label-text-alt">0/5 chars</span>
+                                <span class="label-text-alt">min 16 chars</span>
+                                <span id="post_title_char_count" class="label-text-alt">0/256 chars</span>
+
                             </label>
                         </div>
 
                         <div id="post_descr_controls" class="form-control hidden">
                             <label class="label">
                                 <span class="label-text">Post Description</span>
+                                <span class="label-text-alt">?</span>
+
                             </label>
-                            <textarea id="post_descr_textarea" minlength="2" maxlength="5" name="description"
+                            <textarea id="post_descr_textarea" minlength="32" maxlength="4096" name="description"
                                 class="textarea textarea-bordered h-24 invalid:border-red-500" placeholder="Bio" onInput="countNewPostDescrChars()"></textarea>
                             <label class="label">
-                                <span id="descr_char_count" class="label-text-alt">0/5 chars</span>
+                                <span class="label-text-alt">min 4096 chars</span>
+                                <span id="descr_char_count" class="label-text-alt">0/4096 chars</span>
                             </label>
                         </div>
                         
@@ -3297,13 +3371,11 @@ var buildNewPostPage = async (store) => {
             }
             function countNewPostTitleChars() {
                 let numOfEnteredChars = post_title_input.value.length;
-                let counter = 5 - numOfEnteredChars;
-                post_title_char_count.innerText = counter + "/5 chars";
+                post_title_char_count.innerText = numOfEnteredChars + "/256 chars";
             };
             function countNewPostDescrChars() {
                 let numOfEnteredChars = post_descr_textarea.value.length;
-                let counter = 5 - numOfEnteredChars;
-                descr_char_count.innerText = counter + "/5 chars";
+                descr_char_count.innerText = numOfEnteredChars + "/4096 chars";
             };
 
             function validateNewPostForm() {
@@ -3378,7 +3450,8 @@ var server_default = {
         status: 200,
         headers: new Headers(),
         content: ""
-      }
+      },
+      user: null
     };
     let handlers;
     let route;

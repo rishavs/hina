@@ -42,11 +42,27 @@ export type Store = {
 		headers: 	Headers,
 		content: 	string,
 	},
+	user: User | null,
+}
+
+export enum PostCategory  {
+	else 	= "Everything Else",
+	meta 	= "Meta",
+	tech 	= "Science & Tech",
+	games 	= "Gaming",
+	world 	= "World News",
+	sport 	= "Sports",
+	biz 	= "Business",
+	life 	= "Lifestyle",
+	media 	= "Entertainment",
+	funny 	= "Funny",
+	cute 	= "Cute Stuff",
 }
 
 export type Post = {
 	slug: 			string,
 	author_id: 		string,
+	category: 		PostCategory,
 	category_id: 	number,
 	title: 			string,
 	link: 			string,
@@ -79,7 +95,18 @@ export type User = {
 	gil: 			number,
 	google_id?: 	string,
 	apple_id?: 		string,
+	is_punished?: 	string,
+	warning_level?: number,
+	punish_count?: 	number,
+	punished_at?: 	string,
+	punished_till?: string,
+	punished_for?: 	string,
+	punished_note?: string,
+	created_at?: 	string,
+	updated_at?: 	string,
+	deleted_at?: 	string,
 }
+
 
 // TODO - sanitize. delete all cookies which are not allowed
 export type AllowedCookies =

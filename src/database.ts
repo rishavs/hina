@@ -64,11 +64,21 @@ export const fetchSpecificPostById = async (store: Store) => {
     return result
 }
 
-export const getGoogleUserFromDB = async (store: Store, userid: String) => {
+export const getGoogleUserFromDB = async (store: Store, userId: String) => {
     let conn = connectToPlanetScale(store)
     let result = await conn.execute(`
         select id, slug, name, thumb, honorific, flair, role, level, stars, creds, gil from users where google_id=?`, 
-        [userid]
+        [userId]
+    )
+    return result
+}
+
+export const getUserFromSession = async (store: Store, sessionId: String) => {
+    let conn = connectToPlanetScale(store)
+    let result = await conn.execute(`
+    SELECT * FROM users
+    WHERE id = (SELECT user_id FROM sessions WHERE session_id = ?) limit 1;`, 
+        [sessionId]
     )
     return result
 }

@@ -1,21 +1,22 @@
 CREATE TABLE IF NOT EXISTS `sessions` ( 
-    `session_id`    VARCHAR(24) NOT NULL UNIQUE,
-    `user_id`       VARCHAR(24) NOT NULL,
+    `session_id`    VARCHAR(32) NOT NULL UNIQUE,
+    `user_id`       VARCHAR(32) NOT NULL,
     `user_agent`    VARCHAR(256) NOT NULL,
     `created_at`    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS `blocked_users` (
-    `user_oauth_id` varchar(32) PRIMARY KEY, 
+    `user_id`       varchar(32) PRIMARY KEY, 
     `banned_at`     timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    `banned_note`   varchar(128)    -- note to self. not to be shown to end users
+    `banned_note`   varchar(256)    -- note to self. not to be shown to end users
 )
 
 CREATE TABLE IF NOT EXISTS `users` ( 
-    `id`            varchar(16) PRIMARY KEY, 
+    `id`            varchar(64) PRIMARY KEY, -- apple & google ids
     `slug`          varchar(32) NOT NULL UNIQUE, 
     `name`          varchar(32) NOT NULL, 
     `thumb`         varchar(128) NOT NULL, 
+
     `honorific`     varchar(32) NOT NULL, 
     `flair`         varchar(128) NOT NULL, 
     `role`          varchar(8) NOT NULL, 
@@ -23,22 +24,27 @@ CREATE TABLE IF NOT EXISTS `users` (
     `stars`         int NOT NULL, 
     `creds`         int NOT NULL, 
     `gil`           int NOT NULL, 
-    `google_id`     varchar(64) UNIQUE, 
-    `apple_id`      varchar(64) UNIQUE, 
 
-    `is_punished`   ENUM('warned', 'exiled', 'banned'),
-    `warning_level` int NOT NULL DEFAULT 0, -- warning levels increases on subesequent warnings. reduces when user is good.
+    `current_warning_count` int NOT NULL DEFAULT 0, -- warning levels increases on subesequent warnings. reduces when user is good.
+    `last_warned_at`        timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `warned_till`           timestamp NOT NULL,
+    `warned_for`            varchar(128) NOT NULL
+    `total_warning_count`   int NOT NULL DEFAULT 0, -- total number of times user has been warned
 
-    `punish_count`  int NOT NULL DEFAULT 0,
-    `punished_at`   timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    `punished_till` timestamp NOT NULL,
-    `punished_for`  varchar(128) NOT NULL
-    `punished_note` varchar(128)      -- note to self. not to be shown to end users
+    `exiled_at`             timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `exiled_till`           timestamp NOT NULL,
+    `exiled_for`            varchar(128) NOT NULL
+    `total_exiled_count`    int NOT NULL DEFAULT 0, -- total number of times user has been exiled
+
+    `banned_at`             timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `banned_till`           timestamp NOT NULL,
+    `banned_for`            varchar(128) NOT NULL
+    `banned_note`           varchar(128)    -- note to self. not to be shown to end users
+    `total_banned_count`    int NOT NULL DEFAULT 0, -- total number of times user has been banned
 
     `created_at`    timestamp DEFAULT CURRENT_TIMESTAMP, 
     `updated_at`    timestamp DEFAULT CURRENT_TIMESTAMP, 
     `deleted_at`    timestamp DEFAULT NULL, 
-    CONSTRAINT `both_ids_cannot_be_null` CHECK (((`google_id` is not null) or (`apple_id` is not null))) 
 )
 
 CREATE TABLE IF NOT EXISTS `blocked_domains` (
@@ -59,14 +65,22 @@ CREATE TABLE IF NOT EXISTS `post_categories` (
 
 CREATE TABLE IF NOT EXISTS `posts` ( 
     `id`            varchar(24) PRIMARY KEY, 
-    `slug`          varchar(32) NOT NULL UNIQUE, 
+    `is_root`       boolean NOT NULL DEFAULT true,
+    `parent_id`     varchar(24) NOT NULL, -- for root posts, parent_id = post_id
+
     `author_id`     varchar(16) NOT NULL, 
-    `category_id`   int NOT NULL,
-    `title`         varchar(256) NOT NULL, 
+
+    -- optional fields
+    `slug`          varchar(32) UNIQUE, 
+    `category`      varchar(4), 
+    `title`         varchar(256), 
     `link`          varchar(256), 
     `thumb`         varchar(256), 
-    `content`       text, 
 
+    -- text content
+    `content`       varchar(4096), 
+
+    -- stats
     `digs_count`    int NOT NULL DEFAULT 1, -- update every time user digs
     `buries_count`  int NOT NULL DEFAULT 0, -- NOT Implmented for now
     `comments_count`int NOT NULL DEFAULT 0, -- update every time user comments
@@ -80,74 +94,34 @@ CREATE TABLE IF NOT EXISTS `posts` (
 
     `created_at`    timestamp NULL DEFAULT CURRENT_TIMESTAMP, 
     `updated_at`    timestamp NULL DEFAULT CURRENT_TIMESTAMP, 
-    `archived_at`   timestamp , 
+    `archived_at`   timestamp , -- after n days, archive posts. archived posts are not shown in feed and are read only
+    `locked_at`     timestamp , -- similar to archived_at but is done intentionally for posts which are running off course
     `deleted_at`    timestamp 
 ) ;
-
--- -- Note: Summary tables are updated every hour
-CREATE TABLE IF NOT EXISTS `posts_scores` (
-    `id`            varchar(24) PRIMARY KEY, 
-    `category_id`   int NOT NULL,
-
-    `curr_score`   int NOT NULL, -- considers digs, comments & saves & comments value
-    -- `prev_score`   int NOT NULL, -- considers digs, comments & saves
-
-    `decay_score`   int NOT NULL, -- decayed score
-    `final_score`   int NOT NULL, -- final score
-)
-
-
 
 CREATE TABLE IF NOT EXISTS `posts_dug` (
     `post_id`       varchar(24) NOT NULL, 
     `user_id`       varchar(16) NOT NULL, 
     PRIMARY KEY (`post_id`, `user_id`)
-)
+);
 
-CREATE TABLE IF NOT EXISTS `report_posts` (
-    `post_id`     VARCHAR(24) NOT NULL,
-    `reported_by` VARCHAR(16) NOT NULL,
-    `reported_for` VARCHAR(32) NOT NULL,
-        -- 'Harassment', 
-        -- 'Violates community guidelines', 
-        -- 'Spam', 
-        -- 'Sharing personal information', 
-        -- 'Self harm', 
-        -- 'Illegal activity'
-        -- ) NOT NULL,
-    `extra_details` VARCHAR(256),
-
-    `reported_at`  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
-
-CREATE TABLE IF NOT EXISTS `comments` ( 
-    `id`            varchar(24) PRIMARY KEY, 
+CREATE TABLE IF NOT EXISTS `posts_buried` (
     `post_id`       varchar(24) NOT NULL, 
-    `parent_id`     varchar(24) NOT NULL, 
-    `author_id`     varchar(16) NOT NULL, 
-    `content`       text, 
-    `digs`          int NOT NULL, 
-    `buries`        int NOT NULL,
-    `is_deleted`    boolean NOT NULL DEFAULT false, 
-
-    `created_at`    timestamp NULL DEFAULT CURRENT_TIMESTAMP, 
-    `updated_at`    timestamp NULL DEFAULT CURRENT_TIMESTAMP, 
-    `archived_at`   timestamp NULL DEFAULT NULL, 
-    `deleted_at`    timestamp NULL DEFAULT NULL, 
-) 
-
-CREATE TABLE IF NOT EXISTS `comments_dug` (
-    `post_id`       varchar(24) NOT NULL, 
-    `comment_id`    varchar(24) NOT NULL,
     `user_id`       varchar(16) NOT NULL, 
     PRIMARY KEY (`post_id`, `user_id`)
-)
+);
 
-CREATE TABLE IF NOT EXISTS `report_comments` (
-    `comment_id`    varchar(24) NOT NULL,
+CREATE TABLE IF NOT EXISTS `posts_saved` (
+    `post_id`       varchar(24) NOT NULL, 
+    `user_id`       varchar(16) NOT NULL, 
+    `list_name`     varchar(32) NOT NULL, 
+    PRIMARY KEY (`post_id`, `user_id`, `list_name`)
+);
 
-    `reported_by` VARCHAR(16) NOT NULL,
-    `reported_for` VARCHAR(32) NOT NULL,
+CREATE TABLE IF NOT EXISTS `posts_reported` (
+    `post_id`       varchar(24) NOT NULL, 
+    `reported_by`   VARCHAR(16) NOT NULL,
+    `reported_for`  VARCHAR(32) NOT NULL,
         -- 'Harassment', 
         -- 'Violates community guidelines', 
         -- 'Spam', 
@@ -158,11 +132,7 @@ CREATE TABLE IF NOT EXISTS `report_comments` (
     `extra_details` VARCHAR(256),
 
     `reported_at`  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
-
-CREATE TABLE IF NOT EXISTS `sessions` (
-    `session_id`  VARCHAR(24) NOT NULL UNIQUE,
-    `user_id`     VARCHAR(24) NOT NULL,
-
-    `created_at`  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    `resolved_by` VARCHAR(16) DEFAULT NULL,
+    `resolved_note` VARCHAR(256) DEFAULT NULL,
+    `resolved_at`  TIMESTAMP DEFAULT NULL
 );
